@@ -1,0 +1,44 @@
+$width: 600px;
+@mixin phone {
+    @media (max-width: #{$width}) {
+      @content;
+    }
+}
+  
+
+@mixin desktop {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+.displayFlex {
+    display: flex;
+    flex: 1;
+}
+
+
+.authScreenContainer {
+    @extend .displayFlex;        
+    @include phone{
+        flex-direction: column;
+    }
+}
+
+.loginSigninImageContainer {
+    @extend .displayFlex;
+}
+
+.loginSigninImage{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.loginSigninFormContainer {
+    @extend .displayFlex;
+    justify-content: center;
+    flex-direction: column;
+}
+

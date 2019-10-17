@@ -1,0 +1,56 @@
+$buttonPrimaryColor: #362BB0;
+$width: 600px;
+@mixin phone {
+    @media (max-width: #{$width}) {
+      @content;
+    }
+}
+  
+
+@mixin desktop {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+.displayFlex {
+    display: flex;
+    flex: 1;
+}
+
+
+.formContainer {
+    @extend .displayFlex;
+    @include  phone {
+        margin-top: 5px;
+    }
+}
+
+
+
+.commonButtons {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0px;   
+    border: 1px solid $buttonPrimaryColor;
+}
+
+.login {
+    @extend .commonButtons;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: $buttonPrimaryColor;
+}
+
+
+.sigin {
+    @extend .commonButtons;
+    justify-content: center;
+    align-items: center;
+    background-color: $buttonPrimaryColor;   
+    color: white;
+}
+
+
