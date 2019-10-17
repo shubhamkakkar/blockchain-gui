@@ -24,8 +24,14 @@ $width: 600px;
     @include  phone {
         margin-top: 5px;
     }
+    flex-direction: column;
+    background: red;
 }
 
+
+.formChild { 
+    background: green;
+}
 
 
 .commonButtons {
