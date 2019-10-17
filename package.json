@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "codegen-generate": "graphql-codegen",
     "codegen": "graphql-codegen --config codegen.yml",
-    "git": "git add . && git commit -m "
+    "git": "git add . && git commit -m"
   },
   "eslintConfig": {
     "extends": "react-app"
