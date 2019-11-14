@@ -1,4 +1,4 @@
-$buttonPrimaryColor: #362BB0;
+$buttonPrimaryColor:  rgb(255, 0, 149);
 $width: 600px;
 @mixin phone {
     @media (max-width: #{$width}) {
@@ -35,8 +35,9 @@ $width: 600px;
     border-radius: 5%;
     padding: 5%;
     background: white;
-    border: .51px  solid red;
+    border: .51px  solid rgb(255, 0, 149);
     flex-direction: column;
+    box-shadow: 1px  5px 30px  rgb(255, 0, 149);
 }
 
 .formFields{
