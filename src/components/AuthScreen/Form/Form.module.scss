@@ -57,6 +57,7 @@ $width: 600px;
 
 .formInput {
     @extend .displayFlex;
+    margin-top: 2px;
 
 }
 
@@ -64,22 +65,26 @@ $width: 600px;
 
 .buttonContainer {
     @extend .displayFlex;
-    @include  phone {
-        margin-top: 5px;
-    }
+    
     flex-direction: row;
 }
 
 .btnContainer {
+    @include  phone {
+        margin-top: 5px;
+    }   
     padding: 1px
 }
 
 
 .btnWrapper {
     @extend .displayFlex;
+    
 }
 
 .commonButtons {
+    justify-content: center;
+    align-items: center;
     @extend .displayFlex;
     border-radius: 10px;
     margin:  5px 0;

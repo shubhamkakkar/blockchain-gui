@@ -12,7 +12,8 @@ const buttonsAr: TButton[] = [
     {
         title: "Login",
         cssName: "login",
-        alignment: "center"
+        alignment: "center",
+
     },
     {
         title: "Signup",
@@ -40,7 +41,6 @@ export default function Buttons({ isLogin }: { isLogin: boolean }) {
             {
                 buttonsAr.map((buttonProps, index) => <Button {...{ ...buttonProps, index }} key={index} />)
             }
-
         </div>
     )
 }
