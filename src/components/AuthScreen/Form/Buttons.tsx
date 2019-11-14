@@ -5,7 +5,7 @@ import classes from './Form.module.scss';
 type TButton = { title: "Login" | "Signup", cssName: string, alignment: "center" | "right" }
 
 interface IButton extends TButton {
-    index: number
+    buttonActions: ({ title }: { title: string }) => void
 }
 
 const buttonsAr: TButton[] = [
@@ -25,21 +25,23 @@ const buttonsAr: TButton[] = [
 
 
 
-function Button({ title, cssName, alignment, index }: IButton) {
+function Button({ title, cssName, alignment, buttonActions }: IButton) {
     return (
         <div className={classes.btnWrapper} style={{ textAlign: alignment }}>
-            <button className={classes[cssName]}>
+            <button onClick={() => buttonActions({ title })} className={classes[cssName]}>
                 {title.toUpperCase()}
             </button>
         </div>
     )
 }
 
-export default function Buttons({ isLogin }: { isLogin: boolean }) {
+const buttonMaps = ({ buttonActions }: { buttonActions: any }) => buttonsAr.map((buttonProps, index) => <Button {...{ ...buttonProps, index, buttonActions }} key={index} />)
+
+export default function Buttons({ isLogin, buttonActions }: { isLogin: boolean, buttonActions: ({ title }: { title: string }) => void }) {
     return (
         <div className={classes.btnContainer}>
             {
-                buttonsAr.map((buttonProps, index) => <Button {...{ ...buttonProps, index }} key={index} />)
+                isLogin ? buttonMaps({ buttonActions }) : buttonMaps({ buttonActions }).reverse()
             }
         </div>
     )
