@@ -4,7 +4,7 @@ import classes from './Form.module.scss';
 function FormField({ type, label }: TLoginForm) {
     return (
         <div className={classes.formItems}>
-            <div className={classes.formLabel}>{label}</div>
+            <div className={classes.formLabel}>{label} :</div>
             <input className={classes.formInput}  {...{ type }} name="firstname" />
         </div>
     )

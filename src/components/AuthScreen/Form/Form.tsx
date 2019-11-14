@@ -17,10 +17,6 @@ const loginForm: TLoginForm[] = [
         label: "Password",
         type: "password"
     },
-    {
-        label: "Password",
-        type: "password"
-    }
 ]
 
 
@@ -30,7 +26,7 @@ export default function Form() {
         <div className={classes.formContainer}>
             <div className={classes.cardContainer}>
                 <FormFields {...{ loginForm }} />
-                <Buttons  {...{ isLogin }} />
+                <Buttons  {...{ isLogin, setLogin }} />
             </div>
         </div>
     )
