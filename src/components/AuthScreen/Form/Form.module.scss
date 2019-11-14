@@ -19,24 +19,39 @@ $width: 600px;
 }
 
 
+
 .formContainer {
     @extend .displayFlex;
     @include  phone {
         margin-top: 5px;
     }
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    
+}
+
+.cardContainer{
+    border-radius: 5%;
+    padding: 5%;
+    background: white;
+    border: .51px  solid red;
     flex-direction: column;
 }
 
+.formFields{
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-end;
+}
 
 .formItems {
-    display: flex;
+    flex: 1;
     margin-bottom: 5px;
 }
 
 .formLabel {
     @extend .displayFlex;
-    flex: 1;
     align-items: center;
 }
 
@@ -45,7 +60,21 @@ $width: 600px;
     flex: 3
 }
 
+
+
+.buttonContainer {
+    display: flex;
+    @include  phone {
+        margin-top: 5px;
+    }
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+
 .commonButtons {
+    @extend .displayFlex;
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
@@ -62,7 +91,7 @@ $width: 600px;
 }
 
 
-.sigin {
+.signin {
     @extend .commonButtons;
     justify-content: center;
     align-items: center;

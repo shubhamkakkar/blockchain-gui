@@ -1,9 +1,10 @@
 import React from 'react';
+import FormFields from './FormFields';
+import Buttons from "./Buttons"
 import classes from './Form.module.scss';
 
-
-type TLoginForm = {
-    type?: string,
+export type TLoginForm = {
+    type: string,
     label: string
 }
 
@@ -15,21 +16,22 @@ const loginForm: TLoginForm[] = [
     {
         label: "Password",
         type: "password"
+    },
+    {
+        label: "Password",
+        type: "password"
     }
 ]
 
 
 export default function Form() {
+    const [isLogin, setLogin] = React.useState(false)
     return (
         <div className={classes.formContainer}>
-            {
-                loginForm.map(({ type, label }, key) => (
-                    <div className={classes.formItems}  {...{ key }} >
-                        <div className={classes.formLabel}>{label}</div>
-                        <input className={classes.formInput}  {...{ type }} name="firstname" />
-                    </div>
-                ))
-            }
+            <div className={classes.cardContainer}>
+                <FormFields {...{ loginForm }} />
+                <Buttons  {...{ isLogin }} />
+            </div>
         </div>
     )
 }
