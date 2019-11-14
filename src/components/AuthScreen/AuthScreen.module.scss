@@ -27,6 +27,7 @@ $width: 600px;
 
 .loginSigninImageContainer {
     @extend .displayFlex;
+    padding: 5%
 }
 
 .loginSigninImage{
@@ -38,7 +39,6 @@ $width: 600px;
 
 .loginSigninFormContainer {
     @extend .displayFlex;
-    justify-content: center;
-    flex-direction: column;
+    padding: 5%;
 }
 

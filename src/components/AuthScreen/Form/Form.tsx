@@ -22,14 +22,14 @@ const loginForm: TLoginForm[] = [
 export default function Form() {
     return (
         <div className={classes.formContainer}>
-            <div className={classes.formChild}>
-                First name:
-                <input type="text" name="firstname" />
-            </div>
-            <div>
-                Last name:
-                <input type="text" name="lastname" />
-            </div>
+            {
+                loginForm.map(({ type, label }, key) => (
+                    <div className={classes.formItems}  {...{ key }} >
+                        <div className={classes.formLabel}>{label}</div>
+                        <input className={classes.formInput}  {...{ type }} name="firstname" />
+                    </div>
+                ))
+            }
         </div>
     )
 }

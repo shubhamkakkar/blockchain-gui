@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
-import AuthScreen from "./components/AuthScreen/AuthScreen"
+import { AuthScreen } from "./components/"
 
 const App: React.FC = () => {
   return (

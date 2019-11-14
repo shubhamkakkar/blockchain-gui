@@ -24,15 +24,26 @@ $width: 600px;
     @include  phone {
         margin-top: 5px;
     }
+    justify-content: center;
     flex-direction: column;
-    background: red;
 }
 
 
-.formChild { 
-    background: green;
+.formItems {
+    display: flex;
+    margin-bottom: 5px;
 }
 
+.formLabel {
+    @extend .displayFlex;
+    flex: 1;
+    align-items: center;
+}
+
+.formInput {
+    @extend .displayFlex;
+    flex: 3
+}
 
 .commonButtons {
     border-radius: 10px;
