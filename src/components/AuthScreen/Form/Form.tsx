@@ -8,25 +8,31 @@ export type TLoginForm = {
     label: string
 }
 
+
+
 let loginForm: TLoginForm[] = [
     {
-        label: "Email",
+        label: "email",
         type: "email"
     },
     {
-        label: "Password",
+        label: "password",
         type: "password"
     },
 ]
 
 
 export default function Form() {
-    const [isLogin, setLogin] = React.useState(true)
-    function buttonActions({ title }: { title: string }) {
+    const [isLogin, setLogin] = React.useState(true);
+    const [userCredentials, setUserCredentials] = React.useState({});
+    React.useEffect(() => {
+        console.log({userCredentials})
+    }, [userCredentials])
+
+    function buttonActions({title}: { title: string }) {
 
         if (isLogin) {
             if (title === "Login") {
-                // if isLogin and title=="Login" -> post req to login
 
             } else {
                 loginForm = [
@@ -35,25 +41,24 @@ export default function Form() {
                         label: "Confirm Password",
                         type: "password"
                     },
-                ]
+                ];
                 setLogin(false)
             }
-
         } else {
-
             if (title === "Login") {
-                loginForm = [...loginForm.slice(0, 2)]
+                loginForm = [...loginForm.slice(0, 2)];
                 setLogin(true)
             } else {
-                // of isLogin false and title === "signup" post req to signup
+
             }
         }
     }
+
     return (
         <div className={classes.formContainer}>
             <div className={classes.cardContainer}>
-                <FormFields {...{ loginForm }} />
-                <Buttons  {...{ isLogin, buttonActions }} />
+                <FormFields {...{loginForm, userCredentials, setUserCredentials}} />
+                <Buttons  {...{isLogin, buttonActions}} />
             </div>
         </div>
     )
