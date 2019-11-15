@@ -2,6 +2,8 @@ import React from 'react';
 import FormFields from './FormFields';
 import Buttons from "./Buttons"
 import classes from './Form.module.scss';
+import {useMutation} from "@apollo/react-hooks";
+import {SIGNIN_MUTATION, LOGIN_MUTATION} from "../../../gql/mutations/authentication"
 
 export type TLoginForm = {
     type: string,
@@ -28,18 +30,25 @@ let loginForm: TLoginForm[] = [
 
 const initialState: Partial<TuserCredential> = {};
 
+
+// function authenticate({variables: {email, password}}: { variables: any }) {
+//     const [] = useMutation(AUTHENTICATION_MUTATION);
+//
+// }
+
 export default function Form() {
     const [isLogin, setLogin] = React.useState(true);
     const [userCredentials, setUserCredentials] = React.useState(initialState);
-    React.useEffect(() => {
-        console.log({userCredentials})
-    }, [userCredentials])
+    const [authenticationSignin] = useMutation(SIGNIN_MUTATION);
+    const [authenticationLogin] = useMutation(LOGIN_MUTATION);
 
     function buttonActions({title}: { title: string }) {
-
         if (isLogin) {
             if (title === "Login") {
-
+                const {email, password} = userCredentials;
+                authenticationLogin({variables: {email, password}})
+                    .then(({data: {login: {...loginProps}}}) => console.log({loginProps}))
+                    .catch(er => console.log({er}))
             } else {
                 loginForm = [
                     ...loginForm,
@@ -56,6 +65,9 @@ export default function Form() {
                 setLogin(true)
             } else {
                 const {email, password, ...rest} = userCredentials;
+                authenticationSignin({variables: {email, password}})
+                    .then(({data: {signin: {...signinProps}}}) => console.log({signinProps}))
+                    .catch(er => console.log({er}))
             }
         }
     }
