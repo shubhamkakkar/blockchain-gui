@@ -38,21 +38,26 @@ export default function Form(message?: any) {
     const [isLogin, setLogin] = React.useState(true);
     const [userCredentials, setUserCredentials] = React.useState(initialState);
     const [authenticationSignin] = useMutation(SIGNIN_MUTATION);
-    const [authenticationLogin] = useMutation(LOGIN_MUTATION);
+    const [authenticationLogin, loginMutationProps, ...rest] = useMutation(LOGIN_MUTATION);
 
     function buttonActions({title}: { title: string }) {
         if (isLogin) {
             if (title === "Login") {
                 const {email, password} = userCredentials;
+                console.log({email, password});
                 if (email.trim().length && password.trim().length) {
+
                     authenticationLogin({variables: {email, password}})
-                        .then(({data: {login: {...loginProps}}}) => loginProps)
+                        .then(({data: {login: {...loginProps}}}) => {
+                            console.log({loginProps, rest})
+                        })
                         .catch(er => {
                             alert(er);
                             console.log({er})
                         })
                 } else {
                     alert("All the fields are required")
+                    console.log({email, password})
                 }
             } else {
                 loginForm = [
