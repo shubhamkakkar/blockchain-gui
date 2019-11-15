@@ -6,17 +6,25 @@ function FormField({type, label, onChange}: { type: string, label: string, onCha
     return (
         <div className={classes.formItems}>
             <div className={classes.formLabel}>{label} :</div>
-            <input className={classes.formInput}  {...{type}} name="firstname" onChange={(e) => onChange(e, label)}/>
+            <input className={classes.formInput} required {...{type}} onChange={(e) => onChange(e, label)}/>
         </div>
     )
 }
 
 
-export default function FormFields({loginForm, userCredentials, setUserCredentials}: { loginForm: TLoginForm[], userCredentials: Partial<TuserCredential>, setUserCredentials: Dispatch<SetStateAction<Partial<TuserCredential>>> }) {
+export default function FormFields({loginForm, userCredentials, setUserCredentials}: {
+    loginForm: TLoginForm[],
+    userCredentials: TuserCredential,
+    setUserCredentials: Dispatch<SetStateAction<TuserCredential>>
+}) {
 
     function onChange(e: any, label: string) {
-        // @ts-ignore
-        setUserCredentials({...userCredentials, [label]: e.target.value})
+        if (label === "Confirm Password") {
+            setUserCredentials({...userCredentials, confirmPassword: e.target.value})
+        } else {
+            setUserCredentials({...userCredentials, [label]: e.target.value})
+        }
+
     }
 
     return (

@@ -26,17 +26,15 @@ let loginForm: TLoginForm[] = [
         label: "password",
         type: "password"
     },
-]
+];
 
-const initialState: Partial<TuserCredential> = {};
+const initialState: TuserCredential = {
+    email: "",
+    password: "",
+    confirmPassword: ""
+};
 
-
-// function authenticate({variables: {email, password}}: { variables: any }) {
-//     const [] = useMutation(AUTHENTICATION_MUTATION);
-//
-// }
-
-export default function Form() {
+export default function Form(message?: any) {
     const [isLogin, setLogin] = React.useState(true);
     const [userCredentials, setUserCredentials] = React.useState(initialState);
     const [authenticationSignin] = useMutation(SIGNIN_MUTATION);
@@ -46,9 +44,16 @@ export default function Form() {
         if (isLogin) {
             if (title === "Login") {
                 const {email, password} = userCredentials;
-                authenticationLogin({variables: {email, password}})
-                    .then(({data: {login: {...loginProps}}}) => console.log({loginProps}))
-                    .catch(er => console.log({er}))
+                if (email.trim().length && password.trim().length) {
+                    authenticationLogin({variables: {email, password}})
+                        .then(({data: {login: {...loginProps}}}) => loginProps)
+                        .catch(er => {
+                            alert(er);
+                            console.log({er})
+                        })
+                } else {
+                    alert("All the fields are required")
+                }
             } else {
                 loginForm = [
                     ...loginForm,
@@ -64,10 +69,21 @@ export default function Form() {
                 loginForm = [...loginForm.slice(0, 2)];
                 setLogin(true)
             } else {
-                const {email, password, ...rest} = userCredentials;
-                authenticationSignin({variables: {email, password}})
-                    .then(({data: {signin: {...signinProps}}}) => console.log({signinProps}))
-                    .catch(er => console.log({er}))
+                const {email, password, confirmPassword} = userCredentials;
+                if (email.trim().length && password.trim().length && confirmPassword.trim().length) {
+                    if (password === confirmPassword) {
+                        authenticationSignin({variables: {email, password}})
+                            .then(({data: {signin: {...signinProps}}}) => signinProps)
+                            .catch(er => {
+                                alert("Signup failed, retry");
+                                console.log({er})
+                            })
+                    } else {
+                        alert("Passwords did not match")
+                    }
+                } else {
+                    alert("All the fields are required")
+                }
             }
         }
     }
