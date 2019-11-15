@@ -8,6 +8,11 @@ export type TLoginForm = {
     label: string
 }
 
+export type TuserCredential = {
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
 
 
 let loginForm: TLoginForm[] = [
@@ -21,10 +26,11 @@ let loginForm: TLoginForm[] = [
     },
 ]
 
+const initialState: Partial<TuserCredential> = {};
 
 export default function Form() {
     const [isLogin, setLogin] = React.useState(true);
-    const [userCredentials, setUserCredentials] = React.useState({});
+    const [userCredentials, setUserCredentials] = React.useState(initialState);
     React.useEffect(() => {
         console.log({userCredentials})
     }, [userCredentials])
@@ -49,7 +55,7 @@ export default function Form() {
                 loginForm = [...loginForm.slice(0, 2)];
                 setLogin(true)
             } else {
-
+                const {email, password, ...rest} = userCredentials;
             }
         }
     }

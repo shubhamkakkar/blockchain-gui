@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction} from "react"
-import {TLoginForm} from "./Form"
+import {TLoginForm, TuserCredential} from "./Form"
 import classes from './Form.module.scss';
 
 function FormField({type, label, onChange}: { type: string, label: string, onChange: (e: any, label: string) => void }) {
@@ -12,7 +12,7 @@ function FormField({type, label, onChange}: { type: string, label: string, onCha
 }
 
 
-export default function FormFields({loginForm, userCredentials, setUserCredentials}: { loginForm: TLoginForm[], userCredentials: any, setUserCredentials: Dispatch<SetStateAction<never[]>> }) {
+export default function FormFields({loginForm, userCredentials, setUserCredentials}: { loginForm: TLoginForm[], userCredentials: Partial<TuserCredential>, setUserCredentials: Dispatch<SetStateAction<Partial<TuserCredential>>> }) {
 
     function onChange(e: any, label: string) {
         // @ts-ignore
