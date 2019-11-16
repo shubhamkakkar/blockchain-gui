@@ -1,10 +1,8 @@
 import {combineReducers} from "redux";
-import tokenReducer from "./token"
-import keysReducer from "./keys"
+import keysAndToken from "./keysAndToken"
 
 const rootReducer = combineReducers({
-    tokenReducer,
-    keysReducer
+    keysAndToken
 });
 
 export default rootReducer;

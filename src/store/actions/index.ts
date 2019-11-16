@@ -1,18 +1,13 @@
-export const TOKEN = "TOKEN";
 
-export const tokenAction = (payload: string) => ({
-    type: TOKEN,
-    payload
-});
+export const KEYS_TOKEN = "KEYS_TOKEN"
 
-export const KEYS = "KEYS"
-
-export type TKeysActionPayload = {
-    publickey: string;
-    privatekey: string;
+export type TKeysTokenActionPayload = {
+    publicKey: string;
+    privateKey: string;
+    token: string
 }
 
-export const keysAction = (payload:TKeysActionPayload) => ({
-    type: KEYS,
+export const keysAndTokenAction = (payload: TKeysTokenActionPayload) => ({
+    type: KEYS_TOKEN,
     payload
 });
