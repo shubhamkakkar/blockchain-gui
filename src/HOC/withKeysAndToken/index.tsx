@@ -6,9 +6,9 @@ import {TKeysTokenActionPayload} from "../../store/actions";
 const mapStateToProps = ({keysAndToken}: { keysAndToken: TKeysTokenActionPayload }) => ({keysAndToken});
 
 function withKeysAndToken(Component: (props: any) => any) {
-    function yourFunction({keysAndToken, ...rest}: { keysAndToken: TKeysTokenActionPayload }) {
+    function yourFunction({keysAndToken, history}: { keysAndToken: TKeysTokenActionPayload, history: any }) {
         // @ts-ignore
-        return <Component  {...keysAndToken} />
+        return <Component  {...{...keysAndToken, history}} />
     }
 
     return connect(mapStateToProps)(yourFunction);

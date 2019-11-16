@@ -1,11 +1,11 @@
-$buttonPrimaryColor:  rgb(255, 0, 149);
+$buttonPrimaryColor: #5C43DB;
 $width: 600px;
 @mixin phone {
     @media (max-width: #{$width}) {
       @content;
     }
 }
-  
+
 
 @mixin desktop {
   @media (min-width: #{$width}) {
@@ -28,16 +28,16 @@ $width: 600px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .cardContainer{
     border-radius: 5%;
     padding: 5%;
     background: white;
-    border: .51px  solid rgb(255, 0, 149);
+    border: .51px  solid $buttonPrimaryColor;
     flex-direction: column;
-    box-shadow: 1px  5px 30px  rgb(255, 0, 149);
+    box-shadow: 1px  5px 30px  $buttonPrimaryColor;
 }
 
 .formFields{
@@ -54,6 +54,9 @@ $width: 600px;
 .formLabel {
     @extend .displayFlex;
     align-items: center;
+    text-transform: capitalize;
+    color: #754DA5;
+    font-weight: 500
 }
 
 .formInput {
@@ -66,21 +69,21 @@ $width: 600px;
 
 .buttonContainer {
     @extend .displayFlex;
-    
+
     flex-direction: row;
 }
 
 .btnContainer {
     @include  phone {
         margin-top: 5px;
-    }   
+    }
     padding: 1px
 }
 
 
 .btnWrapper {
     @extend .displayFlex;
-    
+
 }
 
 .commonButtons {
@@ -91,6 +94,7 @@ $width: 600px;
     margin:  5px 0;
     padding: 8px;
     border: 1px solid $buttonPrimaryColor;
+    font-weight: 500;
 }
 
 .login {
@@ -103,7 +107,7 @@ $width: 600px;
 
 .signin {
     @extend .commonButtons;
-    background-color: $buttonPrimaryColor;   
+    background-color: $buttonPrimaryColor;
     color: white;
 }
 

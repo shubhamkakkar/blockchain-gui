@@ -1,0 +1,25 @@
+$width: 600px;
+@mixin phone {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+.displayFlex {
+  display: flex;
+  flex: 1;
+}
+
+.blocksContainer {
+  @extend .displayFlex;
+  height: 100vh;
+  //background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+  flex-direction: column;
+}
+
