@@ -3,14 +3,28 @@ import classes from "./scss/BlocksCard.module.scss"
 import {Block} from "../../generated/graphql";
 
 
-function BlockCard({blockInfo}: { blockInfo: Block }) {
-    return <div>shubham</div>
+type TData = {
+    blocks: Block[]
 }
 
-export default function BlocksCard({loading, data, error}: { loading: any, data: Block[], error: any }) {
-    console.log({loading, error});
+function BlockCard({blockInfo: {_id, password, index, hash, data}}: { blockInfo: Partial<Block> }) {
+
+    return <div>
+        {_id}
+        {password}
+        {index}
+        {hash}
+    </div>
+}
+
+export default function BlocksCard({data, error}: { data: TData, error: any }) {
     return (
-        <div className={classes.blockCardContainer}>shubham</div>
+        <div className={classes.blockCardContainer}>
+            {error && <div>error : {error.message}</div>}
+            {
+                data.blocks.map((blockInfo: Block, key: number) => <BlockCard {...{blockInfo, key}}/>)
+            }
+        </div>
     )
 }
 

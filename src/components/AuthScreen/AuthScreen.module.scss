@@ -1,10 +1,12 @@
 $width: 600px;
+$buttonPrimaryColor: #ccc;
+
 @mixin phone {
     @media (max-width: #{$width}) {
       @content;
     }
 }
-  
+
 
 @mixin desktop {
   @media (min-width: #{$width}) {
@@ -19,25 +21,27 @@ $width: 600px;
 
 
 .authScreenContainer {
-    @extend .displayFlex;        
+    @extend .displayFlex;
+    height: 100vh;
     @include phone{
         flex-direction: column;
         padding-bottom: 20px;
     }
     background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    
+
 }
 
 .loginSigninImageContainer {
     @extend .displayFlex;
-    padding: 5%
+    padding: 5%;
+
 }
 
 .loginSigninImage{
     height: 100%;
     width: 100%;
-    object-fit: contain;
-    border-radius: 10px;
+    border-radius: 10%;
+    box-shadow: 1px  3px 20px  $buttonPrimaryColor;
 }
 
 .loginSigninFormContainer {

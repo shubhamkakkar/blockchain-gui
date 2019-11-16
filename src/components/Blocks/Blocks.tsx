@@ -11,10 +11,12 @@ function Blocks({token, history, ...rest}: { token: string, history: any }) {
     const {loading, error, data} = useQuery(BLOCKS_QUERY, {
         variables: {token},
     });
+
+
     return (
         <div className={classes.blocksContainer}>
             <BlockHeading {...{loading}} />
-            <BlocksCard {...{loading, error, data}} />
+            {!loading && <BlocksCard {...{error, data}} />}
         </div>
     )
 }
