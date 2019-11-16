@@ -14,7 +14,7 @@ const client = new ApolloClient({
 const store = configureStore()
 store.subscribe(() => {
     const globalState = store.getState();
-    console.log(globalState);
+    console.log({globalState});
 });
 ReactDOM.render(
     <Provider {...{store}}>
