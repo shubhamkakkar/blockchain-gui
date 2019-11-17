@@ -17,24 +17,52 @@ $width: 600px;
 }
 
 .blockCardContainer {
-  @extend .displayFlex;
-  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
-  top: 20%;
   animation: containerScrollToTop 3s;
   transition: all 1s ease;
   animation-fill-mode: forwards;
-  //background-color: red;
-  padding: 20px;
+  padding: 10px;
 }
 
+
+.blockCard {
+  @extend .displayFlex;
+  margin-bottom: 5%;
+  margin-right: 15px;
+  padding: 2.5% 1%;
+  flex-direction: column;
+  border: 1px solid #3f51b5;
+  border-radius: 5%;
+}
+
+.cardRow {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.label {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.value {
+  display: flex;
+  flex: 3;
+  justify-content: center;
+}
 
 @keyframes containerScrollToTop {
   0% {
     top: 100%;
+    opacity: 0;
   }
   100% {
     top: 20%;
+    opacity: 1;
   }
 }
 
