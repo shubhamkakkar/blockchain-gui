@@ -18,10 +18,6 @@ $width: 600px;
 
 .blocksContainer {
   @extend .displayFlex;
-  height: 100vh;
   background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
-  flex-direction: column;
-
-
 }
 
