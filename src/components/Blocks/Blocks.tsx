@@ -16,7 +16,7 @@ function Blocks({token, history, ...rest}: { token: string, history: any }) {
     return (
         <div className={classes.blocksContainer}>
             <BlockHeading {...{loading}} />
-            {!loading && <BlocksCard {...{error, data}} />}
+            {/*{!loading && <BlocksCard {...{error, data}} />}*/}
         </div>
     )
 }

@@ -3,7 +3,6 @@ import FormFields from "./FormFields";
 import Buttons from "./Buttons";
 import classes from "./Form.module.scss";
 import {useMutation} from "@apollo/react-hooks";
-import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {
     SIGNIN_MUTATION,
@@ -52,7 +51,7 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
 
     function loginAuthenticator({email, password}: TLSAuthenticator) {
         authenticationLogin({variables: {email, password}})
-            .then(({data: {login: { __typename,  ...loginProps}}}) => {
+            .then(({data: {login: {__typename, ...loginProps}}}) => {
                 setKeysAndToken({...loginProps})
                 // @ts-ignore
                 rest.history.push("blocks");
@@ -66,7 +65,7 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
 
     function signupAuthenticator({email, password}: TLSAuthenticator) {
         authenticationSignin({variables: {email, password}})
-            .then(({data: {signin: {__typename,...signinProps}}}) =>
+            .then(({data: {signin: {__typename, ...signinProps}}}) =>
                 setKeysAndToken({...signinProps})
             )
             .catch(({graphQLErrors}) => {
@@ -133,7 +132,5 @@ const mapDispatchStateToProps = (dispatch: (arg0: any) => void) => ({
         dispatch(keysAndTokenAction(payload))
 });
 
-export default withRouter(connect(
-    null,
-    mapDispatchStateToProps
-)(Form));
+//@ts-ignore
+export default withRouter(Form);

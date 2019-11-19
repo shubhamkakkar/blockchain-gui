@@ -1,6 +1,9 @@
 import React from 'react';
+import {connect} from "react-redux"
 import Form from "./Form/Form"
 import classes from './AuthScreen.module.scss';
+import {Redirect} from "react-router";
+import {keysAndTokenAction, TKeysTokenActionPayload} from "../../store/actions";
 
 
 const ImageLoginScreen = () => React.useMemo(() => (
@@ -13,12 +16,23 @@ const ImageLoginScreen = () => React.useMemo(() => (
 ), [])
 
 
-export default function AuthScreen() {
+function AuthScreen({setKeysAndToken}: { setKeysAndToken: any }) {
+    const value = JSON.parse(localStorage.getItem("KEYS_TOKEN") || "");
+    if (value) {
+        console.log({value})
+        setKeysAndToken({...value})
+        return <Redirect to={"blocks"}/>
+    }
     return (
         <div className={classes.authScreenContainer}>
             <ImageLoginScreen/>
-            <Form/>
+            <Form {...{setKeysAndToken}} />
         </div>
     )
 }
 
+const mapDispatchToProps = (dispatch: (arg0: { type: string; payload: TKeysTokenActionPayload; }) => void) => ({
+    setKeysAndToken: (payload: TKeysTokenActionPayload) => dispatch(keysAndTokenAction(payload))
+});
+
+export default connect(null, mapDispatchToProps)(AuthScreen)
