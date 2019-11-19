@@ -4,12 +4,12 @@ import Buttons from "./Buttons";
 import classes from "./Form.module.scss";
 import {useMutation} from "@apollo/react-hooks";
 import {withRouter} from "react-router";
+import {encryptedKeysAndToken} from "../../../JWT";
 import {
     SIGNIN_MUTATION,
     LOGIN_MUTATION
 } from "../../../gql/mutations/authentication";
 import {
-    keysAndTokenAction,
     TKeysTokenActionPayload
 } from "../../../store/actions";
 
@@ -43,16 +43,22 @@ const initialState: TuserCredential = {
     confirmPassword: ""
 };
 
+
 function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
     const [isLogin, setLogin] = React.useState(true);
     const [userCredentials, setUserCredentials] = React.useState(initialState);
     const [authenticationSignin] = useMutation(SIGNIN_MUTATION);
     const [authenticationLogin] = useMutation(LOGIN_MUTATION);
 
+    function updateReduxKeysAndToken(data: TKeysTokenActionPayload) {
+        const tokenize = encryptedKeysAndToken(data);
+        setKeysAndToken(tokenize)
+    }
+
     function loginAuthenticator({email, password}: TLSAuthenticator) {
         authenticationLogin({variables: {email, password}})
             .then(({data: {login: {__typename, ...loginProps}}}) => {
-                setKeysAndToken({...loginProps})
+                updateReduxKeysAndToken(loginProps)
                 // @ts-ignore
                 rest.history.push("blocks");
             })
@@ -66,7 +72,7 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
     function signupAuthenticator({email, password}: TLSAuthenticator) {
         authenticationSignin({variables: {email, password}})
             .then(({data: {signin: {__typename, ...signinProps}}}) =>
-                setKeysAndToken({...signinProps})
+                updateReduxKeysAndToken(signinProps)
             )
             .catch(({graphQLErrors}) => {
                 const {message} = graphQLErrors[0];
@@ -126,11 +132,6 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
         </div>
     );
 }
-
-const mapDispatchStateToProps = (dispatch: (arg0: any) => void) => ({
-    setKeysAndToken: (payload: TKeysTokenActionPayload) =>
-        dispatch(keysAndTokenAction(payload))
-});
 
 //@ts-ignore
 export default withRouter(Form);

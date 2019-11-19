@@ -3,7 +3,8 @@ import {connect} from "react-redux"
 import Form from "./Form/Form"
 import classes from './AuthScreen.module.scss';
 import {Redirect} from "react-router";
-import {keysAndTokenAction, TKeysTokenActionPayload} from "../../store/actions";
+import {KEYS_TOKEN, keysAndTokenAction, TKeysTokenActionPayload} from "../../store/actions";
+import aesjs from "aes-js";
 
 
 const ImageLoginScreen = () => React.useMemo(() => (
@@ -17,11 +18,10 @@ const ImageLoginScreen = () => React.useMemo(() => (
 
 
 function AuthScreen({setKeysAndToken}: { setKeysAndToken: any }) {
-    const value = JSON.parse(localStorage.getItem("KEYS_TOKEN") || "");
-    if (value) {
-        console.log({value})
-        setKeysAndToken({...value})
-        return <Redirect to={"blocks"}/>
+    const value = localStorage.getItem(KEYS_TOKEN)
+    if (value && value.trim().length) {
+        setKeysAndToken(value);
+        return <Redirect to={"block"}/>
     }
     return (
         <div className={classes.authScreenContainer}>
@@ -31,8 +31,8 @@ function AuthScreen({setKeysAndToken}: { setKeysAndToken: any }) {
     )
 }
 
-const mapDispatchToProps = (dispatch: (arg0: { type: string; payload: TKeysTokenActionPayload; }) => void) => ({
-    setKeysAndToken: (payload: TKeysTokenActionPayload) => dispatch(keysAndTokenAction(payload))
+const mapDispatchToProps = (dispatch: (arg0: { type: string; payload: any }) => void) => ({
+    setKeysAndToken: (payload: any) => dispatch(keysAndTokenAction(payload))
 });
 
 export default connect(null, mapDispatchToProps)(AuthScreen)
