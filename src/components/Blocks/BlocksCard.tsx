@@ -9,7 +9,7 @@ type TData = {
 function CardRow({label, value}: { label: string; value: string }) {
     return (
         <div className={classes.cardRow}>
-            <div className={classes.label}>{label} : </div>
+            <div className={classes.label}>{label} :</div>
             <div className={classes.value}>{value}</div>
         </div>
     );
@@ -25,6 +25,11 @@ function BlockCard({
             <CardRow label={"Previous hash"} value={prevHash}/>
             <CardRow label={"Block Hash"} value={hash}/>
             <CardRow label={"Digital Password"} value={password}/>
+            <div className={classes.actionArea}>
+                <button>
+                    Decrypt
+                </button>
+            </div>
         </div>
     );
 }
@@ -39,7 +44,9 @@ export default function BlocksCard({
     return (
         <div className={classes.blockCardContainer}>
             {error && <div>error : {error.message}</div>}
-            {blocks.map((blockInfo: Block, key: number) => <BlockCard {...{blockInfo, key}} />)}
+            {blocks.length && blocks.map((blockInfo: Block, key: number) => <BlockCard {...{blockInfo, key}} />)}
         </div>
+
+
     );
 }
