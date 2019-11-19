@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
-import {ApolloProvider} from 'react-apollo';
+import {ApolloProvider} from '@apollo/react-hooks';
 import {Provider} from "react-redux";
 import configureStore from "./store"
 import './index.css';
 import App from './App';
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
+    uri: 'https://blockchain-yogesh-sir.herokuapp.com/',
 });
 
 const store = configureStore()
