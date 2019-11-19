@@ -3,9 +3,7 @@ import {connect} from "react-redux"
 import Form from "./Form/Form"
 import classes from './AuthScreen.module.scss';
 import {Redirect} from "react-router";
-import {KEYS_TOKEN, keysAndTokenAction, TKeysTokenActionPayload} from "../../store/actions";
-import aesjs from "aes-js";
-
+import {KEYS_TOKEN, keysAndTokenAction} from "../../store/actions";
 
 const ImageLoginScreen = () => React.useMemo(() => (
     <div className={classes.loginSigninImageContainer}>
@@ -14,15 +12,20 @@ const ImageLoginScreen = () => React.useMemo(() => (
              src={"https://cdn.dribbble.com/users/103909/screenshots/6010724/services-icon-preview-02.png"}
              alt="login-signup"/>
     </div>
-), [])
+), []);
 
 
-function AuthScreen({setKeysAndToken}: { setKeysAndToken: any }) {
-    const value = localStorage.getItem(KEYS_TOKEN)
-    if (value && value.trim().length) {
-        setKeysAndToken(value);
-        return <Redirect to={"block"}/>
-    }
+function AuthScreen({setKeysAndToken, history}: { setKeysAndToken: any, history: any }) {
+
+    React.useEffect(() => {
+        const value = localStorage.getItem(KEYS_TOKEN)
+        if (value && value.trim().length) {
+            setKeysAndToken(value);
+            // history.push("blocks")
+            // return <Redirect to={"blocks"}/>
+        }
+    }, []);
+
     return (
         <div className={classes.authScreenContainer}>
             <ImageLoginScreen/>

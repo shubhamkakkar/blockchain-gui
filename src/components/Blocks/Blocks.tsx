@@ -12,11 +12,14 @@ function Blocks({token, history, ...rest}: { token: string, history: any }) {
         variables: {token},
     });
 
-
+    if (!token) {
+        //TODO: add error 404 page
+        return <div>Error 404 !!</div>
+    }
     return (
         <div className={classes.blocksContainer}>
             <BlockHeading {...{loading}} />
-            {/*{!loading && <BlocksCard {...{error, data}} />}*/}
+            {!loading && !error && <BlocksCard {...{error, data}} />}
         </div>
     )
 }

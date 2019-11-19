@@ -1,5 +1,5 @@
 import React from "react";
-import {HashRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {AuthScreen, Blocks} from "./components/";
 
 const App: React.FC = (props) => {
