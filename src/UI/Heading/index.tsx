@@ -1,11 +1,11 @@
+import classes from "./Heading.module.scss";
 import React from "react";
-import classes from "./scss/BlockHeading.module.scss"
 
-export default function BlockHeading({loading}: { loading: boolean }) {
+export default function Heading({title}: { title: string }) {
     return (
         <div className={classes.blocksHeadingContainer && classes.scrollAnimationClass}>
             <div className={classes.blocksHeadingText}>
-                Public Ledger
+                {title}
             </div>
         </div>
     )

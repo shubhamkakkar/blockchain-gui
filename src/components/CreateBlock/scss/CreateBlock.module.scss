@@ -1,0 +1,57 @@
+$width: 600px;
+
+@mixin phone {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+
+@mixin desktop {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+.displayFlex {
+  display: flex;
+  flex: 1;
+}
+
+.createBlockContainer {
+  @extend .displayFlex;
+  flex-direction: column;
+  //background-color: #F6F8FA;
+}
+
+
+.animationContainer {
+  @extend .displayFlex;
+  position: absolute;
+  animation: containerScrollToTop 3s;
+  transition: all 1s ease;
+  animation-fill-mode: forwards;
+}
+
+.imageContainer {
+  @extend .displayFlex;
+  padding: 5%;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes containerScrollToTop {
+  0% {
+    top: 100%;
+    opacity: 0;
+  }
+  100% {
+    top: 20%;
+    opacity: 1;
+  }
+}
+
+

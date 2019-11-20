@@ -1,0 +1,22 @@
+.displayFlex {
+  display: flex;
+  flex: 1;
+}
+
+.formItems {
+  margin-bottom: 5px;
+}
+
+.formLabel {
+  @extend .displayFlex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #754DA5;
+  font-weight: 500
+}
+
+.formInput {
+  @extend .displayFlex;
+  margin-top: 2px;
+
+}

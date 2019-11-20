@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {AuthScreen, Blocks} from "./components/";
+import CreateBlock from "./components/CreateBlock/CreateBlock";
 
 const App: React.FC = (props) => {
 
@@ -8,6 +9,7 @@ const App: React.FC = (props) => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={AuthScreen}/>
+                    <Route exact path="/createblock" component={CreateBlock}/>
                     <Route exact path="/blocks" component={Blocks}/>
                 </Switch>
             </Router>

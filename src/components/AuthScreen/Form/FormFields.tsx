@@ -1,15 +1,7 @@
 import React, {Dispatch, SetStateAction} from "react"
 import {TLoginForm, TuserCredential} from "./Form"
 import classes from './Form.module.scss';
-
-function FormField({type, label, onChange}: { type: string, label: string, onChange: (e: any, label: string) => void }) {
-    return (
-        <div className={classes.formItems}>
-            <div className={classes.formLabel}>{label} :</div>
-            <input className={classes.formInput} required {...{type}} onChange={(e) => onChange(e, label)}/>
-        </div>
-    )
-}
+import FormField from "../../../UI/FormField";
 
 
 export default function FormFields({loginForm, userCredentials, setUserCredentials}: {
@@ -24,7 +16,6 @@ export default function FormFields({loginForm, userCredentials, setUserCredentia
         } else {
             setUserCredentials({...userCredentials, [label]: e.target.value})
         }
-
     }
 
     return (
