@@ -1,6 +1,7 @@
 import React from "react";
 import withKeysAndToken from "../../HOC/withKeysAndToken";
 import FormField from "../../UI/FormField";
+import classes from "./scss/CreateBlockForm.module.scss"
 
 type TForm = {
     type: "checkbox" | "text";
@@ -31,9 +32,10 @@ function CreateBlockForm({
     history: any;
 }) {
     return (
-        <div style={{display: "flex", flex: 1, flexDirection: "column", backgroundColor: "red"}}>
+        <div className={classes.formContainer}>
             {createBlockForm.map((createBlockFormProps, key) => (
                 <FormField
+                    value={""}
                     {...{...createBlockFormProps, key}}
                     onChange={(e, label) =>
                         console.log({

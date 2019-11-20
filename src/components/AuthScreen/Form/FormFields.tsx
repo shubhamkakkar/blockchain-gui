@@ -11,6 +11,7 @@ export default function FormFields({loginForm, userCredentials, setUserCredentia
 }) {
 
     function onChange(e: any, label: string) {
+        e.preventDefault();
         if (label === "Confirm Password") {
             setUserCredentials({...userCredentials, confirmPassword: e.target.value})
         } else {
@@ -21,7 +22,16 @@ export default function FormFields({loginForm, userCredentials, setUserCredentia
     return (
         <div className={classes.formFields}>
             {
-                loginForm.map(({type, label}, key) => <FormField {...{type, label, key, onChange}} />)
+                loginForm.map(({type, label}, key) =>
+                    <FormField {...{
+                        // @ts-ignore
+                        value: userCredentials[key],
+                        type,
+                        label,
+                        onChange,
+                        key
+                    }} />
+                )
             }
         </div>
     )

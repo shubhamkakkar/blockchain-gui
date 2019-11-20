@@ -4,7 +4,7 @@
 }
 
 .formItems {
-  margin-bottom: 5px;
+
 }
 
 .formLabel {
@@ -18,5 +18,5 @@
 .formInput {
   @extend .displayFlex;
   margin-top: 2px;
-
+  align-items: center;
 }

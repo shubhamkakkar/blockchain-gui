@@ -31,6 +31,9 @@ $width: 600px;
   animation: containerScrollToTop 3s;
   transition: all 1s ease;
   animation-fill-mode: forwards;
+  @include phone {
+    flex-direction: column;
+  }
 }
 
 .imageContainer {

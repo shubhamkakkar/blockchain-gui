@@ -1,0 +1,36 @@
+$width: 600px;
+
+@mixin phone {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+
+@mixin desktop {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+.displayFlex {
+  display: flex;
+  flex: 1;
+}
+
+.formInputContainer {
+  display: flex;
+  background-color: red;
+  @include phone {
+   display: flex;
+  }
+}
+
+.formContainer {
+  @extend .displayFlex;
+  flex-direction: column;
+  justify-content: center;
+  @include phone {
+    align-items: center;
+  }
+}
