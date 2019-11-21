@@ -18,18 +18,15 @@ $width: 600px;
   flex: 1;
 }
 
-.formInputContainer {
-  display: flex;
-  background-color: red;
-  @include phone {
-   display: flex;
-  }
+.formInputContainer{
+  background-color: #5C43DB;
 }
 
 .formContainer {
   @extend .displayFlex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
   @include phone {
     align-items: center;
   }

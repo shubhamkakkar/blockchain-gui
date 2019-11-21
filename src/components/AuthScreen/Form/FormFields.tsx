@@ -29,7 +29,8 @@ export default function FormFields({loginForm, userCredentials, setUserCredentia
                         type,
                         label,
                         onChange,
-                        key
+                        key,
+                        backendLabel: ""
                     }} />
                 )
             }

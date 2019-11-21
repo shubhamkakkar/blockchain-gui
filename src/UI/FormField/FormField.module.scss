@@ -1,10 +1,26 @@
+$width: 600px;
+@mixin phone {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
 .displayFlex {
   display: flex;
   flex: 1;
 }
 
 .formItems {
-
+  @include phone {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .formLabel {
@@ -12,7 +28,14 @@
   align-items: center;
   text-transform: capitalize;
   color: #754DA5;
-  font-weight: 500
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.formInputContainer {
+  @include phone {
+    display: flex;
+  }
 }
 
 .formInput {

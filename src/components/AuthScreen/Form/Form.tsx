@@ -126,7 +126,7 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
     return (
         <div className={classes.formContainer}>
             <div className={classes.cardContainer}>
-                <FormFields {...{loginForm, userCredentials, setUserCredentials}} />
+                <FormFields {...{loginForm, userCredentials, setUserCredentials}}   />
                 <Buttons {...{isLogin, buttonActions}} />
             </div>
         </div>
