@@ -1,38 +1,11 @@
 import React from "react";
 import classes from "./scss/BlocksCard.module.scss";
 import {Block} from "../../generated/graphql";
-
+import BlockCard from "../../UI/BlockCard";
 type TData = {
     blocks: Block[];
 };
 
-function CardRow({label, value}: { label: string; value: string }) {
-    return (
-        <div className={classes.cardRow}>
-            <div className={classes.label}>{label} :</div>
-            <div className={classes.value}>{value}</div>
-        </div>
-    );
-}
-
-function BlockCard({
-                       blockInfo: {_id, password, index, hash, data, prevHash}
-                   }: {
-    blockInfo: Block;
-}) {
-    return (
-        <div className={classes.blockCard}>
-            <CardRow label={"Previous hash"} value={prevHash}/>
-            <CardRow label={"Block Hash"} value={hash}/>
-            <CardRow label={"Digital Password"} value={password}/>
-            <div className={classes.actionArea}>
-                <button>
-                    Decrypt
-                </button>
-            </div>
-        </div>
-    );
-}
 
 export default function BlocksCard({
                                        data: {blocks},
