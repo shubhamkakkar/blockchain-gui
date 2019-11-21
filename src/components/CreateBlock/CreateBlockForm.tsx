@@ -92,8 +92,10 @@ function CreateBlockForm({
         const {__typename, timestamp, ...rest} = createdBlock;
 
         const Memorized = React.memo(() => (
-            <BlockCard blockInfo={rest}>
-                <CardRow label={"Data"} value={rest.data}/>
+            <BlockCard blockInfo={rest} isCreatBlock={true}>
+                <CardRow label={"Organ"} value={`${initialFormValue.organ}`}/>
+                <CardRow label={"Blood"} value={`${initialFormValue.blood}`}/>
+                <CardRow label={"Details"} value={`${initialFormValue.details}`}/>
             </BlockCard>
         ));
 
