@@ -4,6 +4,7 @@ import FormField from "../../UI/FormField";
 import classes from "./scss/CreateBlockForm.module.scss";
 import {useMutation} from "@apollo/react-hooks";
 import {CREATE_BLOCK} from "../../gql/mutations/createBlock";
+import BlockCard, {CardRow} from "../../UI/BlockCard";
 
 type TForm = {
     type: "checkbox" | "text";
@@ -87,10 +88,13 @@ function CreateBlockForm({
     }
 
     function Block() {
+        // @ts-ignore
+        const {__typename, timestamp, ...rest} = createdBlock;
+
         const Memorized = React.memo(() => (
-            <div className={classes.actionArea}>
-                <button {...{onClick}} >Submit</button>
-            </div>
+            <BlockCard blockInfo={rest}>
+                <CardRow label={"Data"} value={rest.data}/>
+            </BlockCard>
         ));
 
         return <Memorized/>

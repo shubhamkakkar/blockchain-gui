@@ -2,7 +2,7 @@ import classes from "./BlockCard.module.scss";
 import {Block} from "../../generated/graphql";
 import React from "react";
 
-function CardRow({label, value}: { label: string; value: string }) {
+export function CardRow({label, value}: { label: string; value: string }) {
     return (
         <div className={classes.cardRow}>
             <div className={classes.label}>{label} :</div>
@@ -12,11 +12,11 @@ function CardRow({label, value}: { label: string; value: string }) {
 }
 
 export default function BlockCard({
-                                      blockInfo: {_id, password, hash, prevHash},
+                                      blockInfo: {_id, password, hash, data, prevHash},
                                       children
                                   }: {
     blockInfo: Block;
-    children?: React.ReactNode
+    children?: any
 }) {
     return (
         <div className={classes.blockCard}>
@@ -25,7 +25,7 @@ export default function BlockCard({
             <CardRow label={"Digital Password"} value={password}/>
             {
                 children
-                    ? <div>children</div>
+                    ? <React.Fragment>{children}</React.Fragment>
                     : <div className={classes.actionArea}>
                         <button>
                             Decrypt
