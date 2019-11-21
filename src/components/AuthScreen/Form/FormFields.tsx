@@ -30,7 +30,8 @@ export default function FormFields({loginForm, userCredentials, setUserCredentia
                         label,
                         onChange,
                         key,
-                        backendLabel: ""
+                        backendLabel: "",
+                        labelColor: "#754DA5"
                     }} />
                 )
             }

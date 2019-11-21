@@ -2,6 +2,8 @@ import React from "react";
 import withKeysAndToken from "../../HOC/withKeysAndToken";
 import FormField from "../../UI/FormField";
 import classes from "./scss/CreateBlockForm.module.scss";
+import {useMutation} from "@apollo/react-hooks";
+import {CREATE_BLOCK} from "../../gql/mutations/createBlock";
 
 type TForm = {
     type: "checkbox" | "text";
@@ -27,7 +29,7 @@ const createBlockForm: TForm[] = [
     {
         type: "text",
         label:
-            "Hospital ID the patient is admitted in/ units of blood group to be taken/ Organ(s) name being taken",
+            "Hospital ID the patient is admitted in/ units of blood group to be taken/ Organ(s) name being taken ( * ) ",
         backendLabel: "details"
     }
 ];
@@ -41,26 +43,84 @@ function CreateBlockForm({
     history: any;
 }) {
     const [initialFormValue, setFormValue] = React.useState({
-        organ: "",
-        blood: "",
+        organ: false,
+        blood: false,
         details: ""
     });
 
+    const [createdBlock, setCreatedBlockData] = React.useState(false)
+    const [createBlockMutation] = useMutation(CREATE_BLOCK);
+
+    function onClick() {
+        const {
+            organ, blood, details
+        } = initialFormValue;
+
+
+        if ((organ || blood) && details.trim().length) {
+            const data = JSON.stringify({organ, blood, details});
+            createBlockMutation({
+                variables: {
+                    data,
+                    token,
+                    privateKey
+                }
+            })
+                .then(({data: {createBlock}}) => setCreatedBlockData(createBlock))
+                .catch(er => {
+                    alert(er)
+                    console.log({er})
+                })
+        } else {
+            alert("Its compulsory to select atleast one of the checkbox and fill in the details")
+        }
+    }
+
+    function SubmitButton() {
+        const Memorized = React.memo(() => (
+            <div className={classes.actionArea}>
+                <button {...{onClick}} >Submit</button>
+            </div>
+        ));
+
+        return <Memorized/>
+    }
+
+    function Block() {
+        const Memorized = React.memo(() => (
+            <div className={classes.actionArea}>
+                <button {...{onClick}} >Submit</button>
+            </div>
+        ));
+
+        return <Memorized/>
+    }
+
     return (
         <div className={classes.formContainer}>
-            {createBlockForm.map((createBlockFormProps, key) => (
-                <FormField
-                    // @ts-ignore
-                    value={initialFormValue[key]}
-                    {...{...createBlockFormProps, key}}
-                    onChange={(e, backendLabel) =>
-                        setFormValue({
-                            ...initialFormValue,
-                            [backendLabel]: e.target.value || e.target.checked
-                        })
-                    }
-                />
-            ))}
+            {
+                createdBlock
+                    ? <Block/>
+                    : <React.Fragment>
+                        {
+                            createBlockForm.map((createBlockFormProps, key) => (
+                                <FormField
+                                    // @ts-ignore
+                                    value={initialFormValue[key]}
+                                    {...{...createBlockFormProps, key}}
+                                    onChange={(e, backendLabel) =>
+                                        setFormValue({
+                                            ...initialFormValue,
+                                            [backendLabel]: e.target.value || e.target.checked
+                                        })
+                                    }
+                                    labelColor={"#3f51b5"}
+                                />
+                            ))
+                        }
+                        <SubmitButton/>
+                    </React.Fragment>
+            }
         </div>
     );
 }

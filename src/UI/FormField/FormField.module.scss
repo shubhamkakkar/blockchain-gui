@@ -27,9 +27,11 @@ $width: 600px;
   @extend .displayFlex;
   align-items: center;
   text-transform: capitalize;
-  color: #754DA5;
   font-weight: 500;
   margin-bottom: 10px;
+  @include phone {
+    text-align: center;
+  }
 }
 
 .formInputContainer {

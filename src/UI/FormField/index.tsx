@@ -7,6 +7,7 @@ interface IFormField {
     label: string;
     onChange: (e: any, label: string) => void;
     backendLabel: string | "";
+    labelColor: string
 }
 
 export default function FormField({
@@ -14,11 +15,12 @@ export default function FormField({
                                       type,
                                       label,
                                       backendLabel,
-                                      onChange
+                                      onChange,
+                                      labelColor: color
                                   }: IFormField) {
     return (
         <div className={classes.formItems}>
-            <div className={classes.formLabel}>{label} :</div>
+            <div className={classes.formLabel} style={{color}}>{label} :</div>
             <div className={classes.formInputContainer}
                 // style={{ backgroundColor: 'blue' }}
             >
