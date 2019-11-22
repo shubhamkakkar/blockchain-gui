@@ -1,7 +1,8 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, withRouter} from "react-router-dom";
 import {AuthScreen, Blocks} from "./components/";
 import CreateBlock from "./components/CreateBlock/CreateBlock";
+
 
 const App: React.FC = (props) => {
 
