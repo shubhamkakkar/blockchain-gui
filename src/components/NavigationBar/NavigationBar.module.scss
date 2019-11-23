@@ -1,0 +1,30 @@
+.displayFlex {
+    display: flex;
+    flex: 1;
+}
+
+.navigationContainer {
+    @extend .displayFlex;
+    padding: 10px;    
+}
+
+.logo{ 
+    @extend .displayFlex;
+    
+}
+
+.logoImg{ 
+    height: 50px;
+}
+
+.linkContainer{ 
+    @extend .displayFlex;
+    flex:2;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link {
+    @extend .displayFlex;
+    margin-right: 5px;
+}
