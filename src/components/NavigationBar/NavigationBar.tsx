@@ -16,7 +16,11 @@ function NavigationBar({ token, history }: { token: string, history: any }) {
                 {
                     token
                         ? token.trim().length
-                        && <Link className={classes.link} style={{ justifyContent: "flex-end" }} to={"/createblock"}>Create Block</Link>
+                        && routes.map(({ path, title }, key) => {
+                            if (path !== "/auth" && path !== "/") {
+                                return <Link  {...{ key }} className={classes.link} style={{ justifyContent: "flex-end" }} to={path}>{title}</Link>
+                            }
+                        })
                         : <Link className={classes.link} style={{ justifyContent: "flex-end" }} to={"/auth"}>{"Login/Signup"}</Link>
                 }
             </div>
