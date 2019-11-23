@@ -1,8 +1,6 @@
 import React, { FunctionComponent, } from "react";
 import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from "react-router-dom";
-import { AuthScreen, Blocks } from "./components/";
-import CreateBlock from "./components/CreateBlock/CreateBlock";
-import NavigationBar from "./components/NavigationBar/NavigationBar";
+import { Home, AuthScreen, Blocks, CreateBlock, NavigationBar } from "./components/";
 
 
 type TRoutes = {
@@ -14,6 +12,11 @@ type TRoutes = {
 export const routes: TRoutes[] = [
     {
         path: "/",
+        title: "Home",
+        component: Home
+    },
+    {
+        path: "/auth",
         title: "Auth",
         component: AuthScreen
     },

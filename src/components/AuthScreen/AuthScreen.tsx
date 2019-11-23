@@ -1,11 +1,11 @@
 import React from 'react';
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import Form from "./Form/Form"
 import classes from './AuthScreen.module.scss';
-import {KEYS_TOKEN, keysAndTokenAction} from "../../store/actions";
+import { KEYS_TOKEN, keysAndTokenAction } from "../../store/actions";
 import ImageContainer from "../../UI/ImageContainer";
 
-function AuthScreen({setKeysAndToken, history}: { setKeysAndToken: any, history: any }) {
+function AuthScreen({ setKeysAndToken, history }: { setKeysAndToken: any, history: any }) {
 
     React.useEffect(() => {
         const value = localStorage.getItem(KEYS_TOKEN)
@@ -21,8 +21,8 @@ function AuthScreen({setKeysAndToken, history}: { setKeysAndToken: any, history:
                 imageContainerClass={classes.loginSigninImageContainer}
                 imageClass={classes.loginSigninImage}
                 alt={"Authentication Image"}
-                src={"https://cdn.dribbble.com/users/103909/screenshots/6010724/services-icon-preview-02.png"}/>
-            <Form {...{setKeysAndToken}} />
+                src={"https://cdn.dribbble.com/users/103909/screenshots/6010724/services-icon-preview-02.png"} />
+            <Form {...{ setKeysAndToken }} />
         </div>
     )
 }
