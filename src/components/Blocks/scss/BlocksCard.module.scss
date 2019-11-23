@@ -21,6 +21,7 @@ $width: 600px;
   flex-wrap: wrap;
   justify-content: center;
   position: absolute;
+  -webkit-animation: containerScrollToTop 3s;
   animation: containerScrollToTop 3s;
   transition: all 1s ease;
   animation-fill-mode: forwards;
@@ -61,3 +62,14 @@ $width: 600px;
   }
 }
 
+
+@-webkit-keyframes containerScrollToTop {
+  0% {
+    top: 100%;
+    opacity: 0;
+  }
+  100% {
+    top: 20%;
+    opacity: 1;
+  }
+}
