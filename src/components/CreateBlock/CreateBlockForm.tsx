@@ -2,9 +2,10 @@ import React from "react";
 import withKeysAndToken from "../../HOC/withKeysAndToken";
 import FormField from "../../UI/FormField";
 import classes from "./scss/CreateBlockForm.module.scss";
-import {useMutation} from "@apollo/react-hooks";
-import {CREATE_BLOCK} from "../../gql/mutations/createBlock";
-import BlockCard, {CardRow} from "../../UI/BlockCard";
+import { useMutation } from "@apollo/react-hooks";
+import { CREATE_BLOCK } from "../../gql/mutations/createBlock";
+import BlockCard from "../../UI/BlockCard";
+import CardRow from "../../UI/BlockCard/CardRow";
 
 type TForm = {
     type: "checkbox" | "text";
@@ -36,9 +37,9 @@ const createBlockForm: TForm[] = [
 ];
 
 function CreateBlockForm({
-                             token,
-                             privateKey
-                         }: {
+    token,
+    privateKey
+}: {
     token: string;
     privateKey: string;
     history: any;
@@ -59,7 +60,7 @@ function CreateBlockForm({
 
 
         if ((organ || blood) && details.trim().length) {
-            const data = JSON.stringify({organ, blood, details});
+            const data = JSON.stringify({ organ, blood, details });
             createBlockMutation({
                 variables: {
                     data,
@@ -67,10 +68,10 @@ function CreateBlockForm({
                     privateKey
                 }
             })
-                .then(({data: {createBlock}}) => setCreatedBlockData(createBlock))
+                .then(({ data: { createBlock } }) => setCreatedBlockData(createBlock))
                 .catch(er => {
                     alert(er)
-                    console.log({er})
+                    console.log({ er })
                 })
         } else {
             alert("Its compulsory to select atleast one of the checkbox and fill in the details")
@@ -80,40 +81,40 @@ function CreateBlockForm({
     function SubmitButton() {
         const Memorized = React.memo(() => (
             <div className={classes.actionArea}>
-                <button {...{onClick}} >Submit</button>
+                <button {...{ onClick }} >Submit</button>
             </div>
         ));
 
-        return <Memorized/>
+        return <Memorized />
     }
 
     function Block() {
         // @ts-ignore
-        const {__typename, timestamp, ...rest} = createdBlock;
+        const { __typename, timestamp, ...rest } = createdBlock;
 
         const Memorized = React.memo(() => (
             <BlockCard blockInfo={rest} isCreatBlock={true}>
-                <CardRow label={"Organ"} value={`${initialFormValue.organ}`}/>
-                <CardRow label={"Blood"} value={`${initialFormValue.blood}`}/>
-                <CardRow label={"Details"} value={`${initialFormValue.details}`}/>
+                <CardRow label={"Organ"} value={`${initialFormValue.organ}`} />
+                <CardRow label={"Blood"} value={`${initialFormValue.blood}`} />
+                <CardRow label={"Details"} value={`${initialFormValue.details}`} />
             </BlockCard>
         ));
 
-        return <Memorized/>
+        return <Memorized />
     }
 
     return (
         <div className={classes.formContainer}>
             {
                 createdBlock
-                    ? <Block/>
+                    ? <Block />
                     : <React.Fragment>
                         {
                             createBlockForm.map((createBlockFormProps, key) => (
                                 <FormField
                                     // @ts-ignore
                                     value={initialFormValue[key]}
-                                    {...{...createBlockFormProps, key}}
+                                    {...{ ...createBlockFormProps, key }}
                                     onChange={(e, backendLabel) =>
                                         setFormValue({
                                             ...initialFormValue,
@@ -124,7 +125,7 @@ function CreateBlockForm({
                                 />
                             ))
                         }
-                        <SubmitButton/>
+                        <SubmitButton />
                     </React.Fragment>
             }
         </div>
