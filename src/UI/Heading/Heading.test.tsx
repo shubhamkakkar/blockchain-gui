@@ -6,6 +6,8 @@ import EnzymeAdapter from "enzyme-adapter-react-16";
 import Heading, { THeading } from '.';
 import { findByAttr } from '../../App.test';
 
+Enzyme.configure({ adapter: new EnzymeAdapter() })
+
 describe('Heading Test', () => {
     let wrapper: ShallowWrapper;
     let headingContainer: any;
