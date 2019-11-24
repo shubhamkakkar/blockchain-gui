@@ -69,7 +69,6 @@ export default function BlockCard({
                 <CardRow label={"organ taken?"} value={organ.toString()}/>
                 <CardRow label={"blood taken?"} value={blood.toString()}/>
                 <CardRow label={"Brief details"} value={details}/>
-                <SubmitButton/>
             </div>
         )
     }
@@ -89,7 +88,8 @@ export default function BlockCard({
             {children && (<React.Fragment>{children}</React.Fragment>)}
             {statePassword !== "" && dataDecrypt()}
 
-            <SubmitButton/>
+            {!children && !loading &&
+            queryData.block.data === data && <SubmitButton/>}
         </div>
     );
 }
