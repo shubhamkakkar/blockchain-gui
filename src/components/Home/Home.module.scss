@@ -1,24 +1,25 @@
 .contentContainer {
     position: absolute;
     top: 50%;
-    width: 98%;  
+    width: 98%;
 }
 
 
 .button {
     display: flex;
     margin-right: 20px;
-    border: 1px solid #3f51b5;
-    background-color: #3f51b5;
+    border: 1px solid #E91E63;
+    //background-color: #E91E63;
+    background-color: white;
     border-radius: 20px;
-    color: white;
+    color: #E91E63;
     text-decoration: none;
     text-align: center;
     padding: 10px;
-   
+    font-weight: bold;
 }
 
-.flex{ 
+.flex{
     display: flex;
     flex: 1;
     justify-content : center
