@@ -10,7 +10,7 @@ function Blocks({ token, history, ...rest }: { token: string, history: any }) {
     const { loading, error, data } = useQuery(BLOCKS_QUERY, {
         variables: { token },
     });
-    console.log({ loading, error });
+    // console.log({ loading, error });
     if (!token) {
         //TODO: add error 404 page
         return <div>Error 404 !!</div>

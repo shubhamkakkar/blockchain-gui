@@ -1,63 +1,95 @@
 import React from "react";
 import classes from "./BlockCard.module.scss";
-import { Block } from "../../generated/graphql";
-import CardRow from './CardRow'
+import {Block} from "../../generated/graphql";
+import CardRow from "./CardRow";
+import {useLazyQuery, useQuery} from "@apollo/react-hooks";
+import {BLOCK} from "../../gql/query/block";
 
 export default function BlockCard({
-    blockInfo: { _id, password, hash, data, prevHash },
-    children,
-    isCreatBlock,
-    onClick,
-    queryData, queryError, loading
-}: {
+                                      blockInfo: {_id, password, hash, data, prevHash},
+                                      children,
+                                      isCreatBlock,
+                                      token
+                                  }: {
     blockInfo: Block;
-    children?: any,
-    isCreatBlock?: boolean | false,
-    onClick?: any,
-    queryData?: any, queryError?: any, loading?: boolean
+    children?: any;
+    isCreatBlock?: boolean | false;
+    token?: string;
 }) {
-
-
     function CardRowSet() {
         const Memorized = React.memo(() => (
             <>
-                <CardRow label={"Previous hash"} value={prevHash} />
-                <CardRow label={"Block Hash"} value={hash} />
-                <CardRow label={"Digital Password"} value={password} />
+                <CardRow label={"Previous hash"} value={prevHash}/>
+                <CardRow label={"Block Hash"} value={hash}/>
+                <CardRow label={"Digital Password"} value={password}/>
             </>
         ));
-        return <Memorized />;
+        return <Memorized/>;
+    }
+
+    const conditionClass = isCreatBlock
+        ? classes.emptyClass
+        : classes.blockCardInLedgerOnly;
+
+    const [statePassword, setPassword] = React.useState("");
+    const {loading, data: queryData, error: queryError} = useQuery(BLOCK, {
+        variables: {token, password: statePassword, id: _id}
+    });
+
+    React.useEffect(() => {
+        if (statePassword !== "") {
+            console.log({queryData})
+        }
+    }, [statePassword]);
+
+    function onClick() {
+        const tempPassword = window.prompt(
+            "Are you sure you wish to delete this item?"
+        );
+        if (tempPassword && tempPassword.length) {
+            setPassword(tempPassword);
+        }
     }
 
 
+    function SubmitButton() {
+        const Memorized = React.memo(() => <div className={classes.actionArea}>
+            <button {...{onClick}} >Decrypt</button>
+        </div>);
+
+        return <Memorized/>
+    }
 
 
-    const conditionClass = isCreatBlock ? classes.emptyClass : classes.blockCardInLedgerOnly;
-    const [dataShow, setDataShow] = React.useState(false)
+    function ParsedObject({data}: { data: string }) {
+        const {organ, details, blood} = JSON.parse(data);
+        console.log({organ, details, blood});
+        return (
+            <div>
+                <CardRow label={"organ taken?"} value={organ.toString()}/>
+                <CardRow label={"blood taken?"} value={blood.toString()}/>
+                <CardRow label={"Brief details"} value={details}/>
+                <SubmitButton/>
+            </div>
+        )
+    }
+
+    function dataDecrypt() {
+        if (!loading &&
+            queryData.block.data !== data) {
+            return <ParsedObject data={queryData.block.data}/>
+        }
+        return <div>Authentication Failed</div>
+
+    }
 
     return (
-        <div
-            className={`${classes.blockCard} ${conditionClass}`}>
-            <CardRowSet />
-            {children && <React.Fragment>{children}</React.Fragment>}
+        <div className={`${classes.blockCard} ${conditionClass}`}>
+            <CardRowSet/>
+            {children && (<React.Fragment>{children}</React.Fragment>)}
+            {statePassword !== "" && dataDecrypt()}
 
+            <SubmitButton/>
         </div>
     );
 }
-
-
-// {
-//     !dataShow ? <div className={classes.actionArea}>
-//         <button onClick={() => {
-//             onClick({ _id })
-//             if (queryData) {
-//                 setDataShow(true)
-
-//             }
-
-//         }} >
-//             Decrypt
-//     </button>
-//     </div> : <CardRow label={"Digital Password"} value={password} />
-
-// }
