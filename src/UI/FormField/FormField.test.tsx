@@ -52,6 +52,4 @@ describe('formField', () => {
         propException({ wrapper: input, propname: "onChange", notToBe: 0 })
         propException({ wrapper: input, propname: "required", notToBe: false })
     })
-
-
 })
