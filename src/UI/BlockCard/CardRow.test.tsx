@@ -38,7 +38,10 @@ describe('card Row', () => {
         expect(cardRowLabel.props().className.length).not.toBe(0)
         expect(cardRowLabel.text().length).not.toBe(0)
     })
-
+    test('should cardRowValue have className and text', () => {
+        expect(cardRowValue.props().className.length).not.toBe(0)
+        expect(cardRowValue.text().length).not.toBe(0)
+    })
 
 
 })
