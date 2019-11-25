@@ -4,7 +4,8 @@ import EnzymeAdapter from "enzyme-adapter-react-16";
 import ImageContainer, { TImageContainer } from './'
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-import { findByAttr } from "../../App.test"
+
+import findByAttr from "../../utility"
 
 describe('ImageContainer UI', () => {
     let wrapper: ShallowWrapper;

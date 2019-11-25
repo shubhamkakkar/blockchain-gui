@@ -6,9 +6,7 @@ import EnzymeAdapter from "enzyme-adapter-react-16";
 import App, { routes } from "./App";
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-
-export const findByAttr = (wrapper: ShallowWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>, value: string) =>
-  wrapper.find(`[data-test="${value}"]`)
+import findByAttr from "./utility"
 
 describe("render app.tsx", () => {
   let wrapper: ShallowWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>;

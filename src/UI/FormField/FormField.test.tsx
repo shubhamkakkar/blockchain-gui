@@ -3,8 +3,8 @@ import React from 'react'
 import Enzyme, { shallow, ShallowWrapper } from "enzyme"
 import EnzymeAdapter from "enzyme-adapter-react-16"
 import FormField, { IFormField } from "./"
-import { findByAttr } from '../../App.test';
 
+import findByAttr from "../../utility"
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const propException = ({ wrapper, propname, notToBe }: { wrapper: any, propname: string, notToBe: number | object | string | boolean }) => expect(wrapper.props()[propname]).not.toBe(notToBe)
