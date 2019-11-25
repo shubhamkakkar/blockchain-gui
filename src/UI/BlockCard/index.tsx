@@ -13,7 +13,7 @@ export type TBlockCard = {
 }
 
 export default function BlockCard({
-    blockInfo: { _id, password, hash, data, prevHash },
+    blockInfo: { _id, password, hash, data: blockData, prevHash },
     children,
     isCreatBlock,
     token
@@ -34,7 +34,7 @@ export default function BlockCard({
         : classes.blockCardInLedgerOnly;
 
     const [statePassword, setPassword] = React.useState("");
-    const { loading, data: queryData, error: queryError } = useQuery(BLOCK, {
+    const { loading, data, error: queryError } = useQuery(BLOCK, {
         variables: { token, password: statePassword, id: _id }
     });
 
@@ -69,20 +69,20 @@ export default function BlockCard({
 
     function dataDecrypt() {
         if (!loading &&
-            queryData.block.data !== data) {
-            return <ParsedObject data-test="ParsedObject" data={queryData.block.data} />
+            data.block.data !== data) {
+            return <ParsedObject data-test="ParsedObject" data={data.block.data} />
         }
         return <div>Authentication Failed</div>
 
     }
 
     return (
-        <div data-tezt="container" className={`${classes.blockCard} ${conditionClass}`}>
-            <CardRowSet />
+        <div data-text="container" className={`${classes.blockCard} ${conditionClass}`}>
+            <CardRowSet data-text="CardRowSet" />
             {children && (<React.Fragment>{children}</React.Fragment>)}
             {statePassword !== "" && dataDecrypt()}
-            {!children && !loading &&
-                queryData.block.data === data && <SubmitButton data-test="SubmitButton" />}
+            {!children && !loading && data !== undefined &&
+                data.block.data === blockData && <SubmitButton data-test="SubmitButton" />}
         </div>
     );
 }
