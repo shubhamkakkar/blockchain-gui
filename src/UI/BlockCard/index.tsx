@@ -21,9 +21,9 @@ export default function BlockCard({
     function CardRowSet() {
         const Memorized = React.memo(() => (
             <>
-                <CardRow label={"Previous hash"} value={prevHash} />
-                <CardRow label={"Block Hash"} value={hash} />
-                <CardRow label={"Digital Password"} value={password} />
+                <CardRow data-test="CardRow" label={"Previous hash"} value={prevHash} />
+                <CardRow data-test="CardRow" label={"Block Hash"} value={hash} />
+                <CardRow data-test="CardRow" label={"Digital Password"} value={password} />
             </>
         ));
         return <Memorized />;
@@ -38,12 +38,6 @@ export default function BlockCard({
         variables: { token, password: statePassword, id: _id }
     });
 
-    React.useEffect(() => {
-        if (statePassword !== "") {
-            console.log({ queryData })
-        }
-    }, [statePassword]);
-
     function onClick() {
         const tempPassword = window.prompt(
             "Are you sure you wish to delete this item?"
@@ -56,21 +50,19 @@ export default function BlockCard({
 
     function SubmitButton() {
         const Memorized = React.memo(() => <div className={classes.actionArea}>
-            <button {...{ onClick }} >Decrypt</button>
+            <button {...{ onClick }}>Decrypt</button>
         </div>);
-
         return <Memorized />
     }
 
 
     function ParsedObject({ data }: { data: string }) {
         const { organ, details, blood } = JSON.parse(data);
-        console.log({ organ, details, blood });
         return (
             <div>
-                <CardRow label={"organ taken?"} value={organ.toString()} />
-                <CardRow label={"blood taken?"} value={blood.toString()} />
-                <CardRow label={"Brief details"} value={details} />
+                <CardRow data-test="CardRow" label={"organ taken?"} value={organ.toString()} />
+                <CardRow data-test="CardRow" label={"blood taken?"} value={blood.toString()} />
+                <CardRow data-test="CardRow" label={"Brief details"} value={details} />
             </div>
         )
     }
@@ -78,20 +70,19 @@ export default function BlockCard({
     function dataDecrypt() {
         if (!loading &&
             queryData.block.data !== data) {
-            return <ParsedObject data={queryData.block.data} />
+            return <ParsedObject data-test="ParsedObject" data={queryData.block.data} />
         }
         return <div>Authentication Failed</div>
 
     }
 
     return (
-        <div className={`${classes.blockCard} ${conditionClass}`}>
+        <div data-tezt="container" className={`${classes.blockCard} ${conditionClass}`}>
             <CardRowSet />
             {children && (<React.Fragment>{children}</React.Fragment>)}
             {statePassword !== "" && dataDecrypt()}
-
             {!children && !loading &&
-                queryData.block.data === data && <SubmitButton />}
+                queryData.block.data === data && <SubmitButton data-test="SubmitButton" />}
         </div>
     );
 }

@@ -1,4 +1,4 @@
 import React from "react"
-import { ShallowWrapper } from 'enzyme'
-export default (wrapper: ShallowWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>, value: string) =>
+import { ShallowWrapper, ReactWrapper } from 'enzyme'
+export default (wrapper: ShallowWrapper | ReactWrapper, value: string) =>
     wrapper.find(`[data-test="${value}"]`)
