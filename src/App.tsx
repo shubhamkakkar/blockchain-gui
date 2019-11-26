@@ -1,6 +1,6 @@
-import React, { FunctionComponent, } from "react";
-import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from "react-router-dom";
-import { Home, AuthScreen, Blocks, CreateBlock, NavigationBar } from "./components/";
+import React, {FunctionComponent,} from "react";
+import {BrowserRouter as Router, Route, Switch, RouteComponentProps} from "react-router-dom";
+import {Home, AuthScreen, Blocks, CreateBlock, NavigationBar} from "./components/";
 
 
 type TRoutes = {
@@ -34,18 +34,23 @@ export const routes: TRoutes[] = [
 
 const App: React.FC = (props) => {
 
-    return (
-        <Router>
-            <NavigationBar history={() => { }} />
-            <Switch>
-                {
-                    routes.map(({ path, component }, key) => <Route exact {...{ path, component, key }} />)
-                }
-            </Switch>
-        </Router>
-    );
-}
-    ;
+        return (
+            <Router data-test={"RouterContainer"}>
+                <NavigationBar data-test={"NavigationBar"} history={() => {
+                }}/>
+                <Switch data-test={"SwitchContainer"}>
+                    {
+                        routes.map(({path, component}, key) => <Route data-test={"Route"} exact {...{
+                            path,
+                            component,
+                            key
+                        }} />)
+                    }
+                </Switch>
+            </Router>
+        );
+    }
+;
 
 
 export default App;

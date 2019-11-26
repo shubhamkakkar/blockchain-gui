@@ -5,7 +5,9 @@ import classes from './AuthScreen.module.scss';
 import { KEYS_TOKEN, keysAndTokenAction } from "../../store/actions";
 import ImageContainer from "../../UI/ImageContainer";
 
-function AuthScreen({ setKeysAndToken, history }: { setKeysAndToken: any, history: any }) {
+export type TAuthScreen = { setKeysAndToken: any, history: any }
+
+function AuthScreen({ setKeysAndToken, history }: TAuthScreen) {
 
     React.useEffect(() => {
         const value = localStorage.getItem(KEYS_TOKEN)
@@ -16,13 +18,16 @@ function AuthScreen({ setKeysAndToken, history }: { setKeysAndToken: any, histor
     }, []);
 
     return (
-        <div className={classes.authScreenContainer}>
+        <div data-test="authScreenContainer" className={classes.authScreenContainer}>
             <ImageContainer
+                data-test="ImageContainer"
                 imageContainerClass={classes.loginSigninImageContainer}
                 imageClass={classes.loginSigninImage}
                 alt={"Authentication Image"}
                 src={"https://cdn.dribbble.com/users/103909/screenshots/6010724/services-icon-preview-02.png"} />
-            <Form {...{ setKeysAndToken }} />
+            <Form
+                data-test="Form"
+                {...{ setKeysAndToken }} />
         </div>
     )
 }

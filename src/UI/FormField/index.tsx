@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./FormField.module.scss";
 
-interface IFormField {
+export interface IFormField {
     type: string;
     value: string;
     label: string;
@@ -11,24 +11,23 @@ interface IFormField {
 }
 
 export default function FormField({
-                                      value,
-                                      type,
-                                      label,
-                                      backendLabel,
-                                      onChange,
-                                      labelColor: color
-                                  }: IFormField) {
+    value,
+    type,
+    label,
+    backendLabel,
+    onChange,
+    labelColor: color
+}: IFormField) {
     return (
-        <div className={classes.formItems}>
-            <div className={classes.formLabel} style={{color}}>{label} :</div>
-            <div className={classes.formInputContainer}
-                // style={{ backgroundColor: 'blue' }}
-            >
+        <div data-test="formFieldContainer" className={classes.formItems}>
+            <div data-test="label" className={classes.formLabel} style={{ color }}>{label} :</div>
+            <div data-test="inputContainer" className={classes.formInputContainer}>
                 <input
+                    data-test="input"
                     className={classes.formInput}
-                    style={{width: backendLabel === "details" ? "90%" : "inherit"}}
+                    style={{ width: backendLabel === "details" ? "90%" : "inherit" }}
                     required
-                    {...{type, value}}
+                    {...{ type, value }}
                     onChange={e => onChange(e, backendLabel)}
                 />
             </div>
