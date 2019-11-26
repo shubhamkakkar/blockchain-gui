@@ -6,27 +6,22 @@ type TData = {
     blocks: BlockType[];
 };
 
+export type TBlocksCard = {
+    data: TData;
+    error: any;
+    token: string;
+};
+
 
 export default function BlocksCard({
     data: { blocks },
     error,
     token
-}: {
-    data: TData;
-    error: any;
-    token: string;
-}) {
-
-
-
-
-
+}: TBlocksCard) {
     return (
-        <div className={classes.blockCardContainer}>
-            {error && <div>error : {error.message}</div>}
-            {blocks.length && blocks.map((blockInfo: BlockType, key: number) => <BlockCard {...{ blockInfo, key, token, }} />)}
+        <div data-test="blockCardContainer" className={classes.blockCardContainer}>
+            {error && <div data-test="errorDiv">error : {error.message}</div>}
+            {blocks.length && blocks.map((blockInfo: BlockType, key: number) => <BlockCard data-test="blocksDiv-BlockCards" {...{ blockInfo, key, token, }} />)}
         </div>
-
-
     );
 }
