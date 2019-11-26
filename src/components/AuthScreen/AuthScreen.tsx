@@ -20,11 +20,14 @@ function AuthScreen({ setKeysAndToken, history }: TAuthScreen) {
     return (
         <div data-test="authScreenContainer" className={classes.authScreenContainer}>
             <ImageContainer
+                data-test="ImageContainer"
                 imageContainerClass={classes.loginSigninImageContainer}
                 imageClass={classes.loginSigninImage}
                 alt={"Authentication Image"}
                 src={"https://cdn.dribbble.com/users/103909/screenshots/6010724/services-icon-preview-02.png"} />
-            <Form {...{ setKeysAndToken }} />
+            <Form
+                data-test="Form"
+                {...{ setKeysAndToken }} />
         </div>
     )
 }

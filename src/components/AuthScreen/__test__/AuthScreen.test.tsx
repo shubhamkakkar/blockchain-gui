@@ -1,14 +1,11 @@
 import React from 'react'
-import { Provider } from "react-redux"
 import Enzyme, { ShallowWrapper, shallow, mount, ReactWrapper } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import AuthScreen, { TAuthScreen } from "../AuthScreen"
 import configureStore from 'redux-mock-store';
 import { keysAndTokenAction } from "../../../store/actions"
-import wait from 'waait';
-import ImageContainer from '../../../UI/ImageContainer';
 
-
+import findByAttr from "../../../utility";
 
 const mockStore = configureStore([]);
 Enzyme.configure({ adapter: new EnzymeAdapter() });
@@ -27,21 +24,27 @@ describe('<AuthScreen/>', () => {
         });
         store.dispatch = jest.fn();
         wrapper = shallow(
-            <Provider {...{ store }}>
-                <AuthScreen {...authScreenProps} />
-            </Provider>
-        );
+            <AuthScreen  {...{ store, ...authScreenProps }} />
+        ).dive();
         wrapper.update();
     });
-    test('should AuthScreen', () => {
-        const authScreenContainer = wrapper.find(
-            <ImageContainer
-                imageContainerClass={{}}
-                imageClass={{}}
-                alt={"Authentication Image"}
-                src={"https://cdn.dribbble.com/users/103909/screenshots/6010724/services-icon-preview-02.png"}
-            />
-        );
-        console.log(authScreenContainer.debug())
+    test('should contain AuthScreenContianer', () => {
+        const authScreenContainer = findByAttr(wrapper, "authScreenContainer")
+        expect(authScreenContainer.length).toBeTruthy();
     });
+    test('should contain ImageContainer and its related props', () => {
+        const ImageContainer = findByAttr(wrapper, "ImageContainer")
+        expect(ImageContainer.length).toBeTruthy();
+    });
+    test('should contain Form and its related props', () => {
+        const Form = findByAttr(wrapper, "Form")
+        expect(Form.length).toBeTruthy();
+    });
+    test('should container localStorage', () => {
+        expect(window.localStorage.getItem("KEYS_TOKEN")).not.toBe("");
+        /**
+         * if KEYS_TOKEN exist in the localstorage then dispacth redux action - setKeysAndToken
+         */
+    })
+
 })
