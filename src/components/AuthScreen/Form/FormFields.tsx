@@ -3,12 +3,13 @@ import { TLoginForm, TuserCredential } from "./Form"
 import classes from './Form.module.scss';
 import FormField from "../../../UI/FormField";
 
-
-export default function FormFields({ loginForm, userCredentials, setUserCredentials }: {
+export type TFormFieldsProps = {
     loginForm: TLoginForm[],
     userCredentials: TuserCredential,
     setUserCredentials: Dispatch<SetStateAction<TuserCredential>>
-}) {
+}
+
+export default function FormFields({ loginForm, userCredentials, setUserCredentials }: TFormFieldsProps) {
 
     function onChange(e: any, label: string) {
         e.preventDefault();
@@ -20,19 +21,21 @@ export default function FormFields({ loginForm, userCredentials, setUserCredenti
     }
 
     return (
-        <div className={classes.formFields}>
+        <div data-test='formFieldsContainer' className={classes.formFields}>
             {
                 loginForm.map(({ type, label }, key) =>
-                    <FormField {...{
-                        // @ts-ignore
-                        value: userCredentials[key],
-                        type,
-                        label,
-                        onChange,
-                        key,
-                        backendLabel: "",
-                        labelColor: "#5C43DB"
-                    }} />
+                    <FormField
+                        data-test='FormField'
+                        {...{
+                            // @ts-ignore
+                            value: userCredentials[key],
+                            type,
+                            label,
+                            onChange,
+                            key,
+                            backendLabel: "",
+                            labelColor: "#5C43DB"
+                        }} />
                 )
             }
         </div>
