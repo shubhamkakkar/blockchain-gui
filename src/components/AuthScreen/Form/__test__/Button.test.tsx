@@ -42,10 +42,21 @@ describe('<Button />', () => {
         test('should buttonMapsContainer contain 2 buttons', () => {
             const button1 = findByAttr(wrapper1, "Button")
             const button2 = findByAttr(wrapper2, "Button");
-
             expect(button1.length).toBe(2)
             expect(button2.length).toBe(2)
         });
+
+        test('should button container props of onClick, title and className', () => {
+            const button1 = findByAttr(wrapper1, "Button")
+            expect(button1.first().props().className).toBe("signin")
+            expect(button1.last().props().className).toBe("login")
+
+            const button2 = findByAttr(wrapper2, "Button")
+            expect(button2.first().props().className).toBe("login")
+            expect(button2.last().props().className).toBe("signin")
+
+        })
+
 
     })
 
