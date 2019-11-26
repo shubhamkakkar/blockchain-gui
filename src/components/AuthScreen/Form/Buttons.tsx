@@ -23,30 +23,21 @@ const buttonsAr: TButton[] = [
 ];
 
 
-function Button({ title, cssName, alignment, buttonActions }: IButton) {
-    const MemorizedButton = () => React.useMemo(() => (
-        <div className={classes.btnWrapper} style={{ textAlign: alignment }}>
-            <button onClick={() => buttonActions({ title })} className={classes[cssName]}>
-                {title.toUpperCase()}
-            </button>
-        </div>
-    ), []);
-    return <MemorizedButton />
-}
 
-const buttonMaps = ({ buttonActions }: { buttonActions: any }) => buttonsAr.map((buttonProps, index) =>
-    <Button {...{ ...buttonProps, index, buttonActions }} key={index} />);
+const buttonMaps = ({ buttonActions }: { buttonActions: any }) => buttonsAr.map(({ title, cssName, alignment }, key) => (
+    <div {...{ key }} data-test="buttonMapsContainer" className={classes.btnWrapper} style={{ textAlign: alignment }}>
+        <button data-test="Button" onClick={() => buttonActions({ title })} className={classes[cssName]}>
+            {title.toUpperCase()}
+        </button>
+    </div>
+));
 
-function ButtonsChild({ isLogin, buttonActions }: TbuttonsProp) {
-    return React.useMemo(() => (
-        <div className={classes.btnContainer}>
-            {
-                isLogin ? buttonMaps({ buttonActions }) : buttonMaps({ buttonActions }).reverse()
-            }
-        </div>
-    ), [buttonActions, isLogin])
-}
 
-export default function Buttons(buttonsProp: TbuttonsProp) {
-    return <ButtonsChild data-test="ButtonsChild" {...{ ...buttonsProp }} />
+
+export default function Buttons({ isLogin, buttonActions }: TbuttonsProp) {
+    return <div data-test="ButtonsChildContainer" className={classes.btnContainer}>
+        {
+            isLogin ? buttonMaps({ buttonActions }) : buttonMaps({ buttonActions }).reverse()
+        }
+    </div>
 }
