@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import wait from "waait";
+import { GraphQLError } from 'graphql'
 import Enzyme, { shallow, ShallowWrapper, mount, ReactWrapper } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import { MockedProvider } from '@apollo/react-testing';
 import BlockCard, { TBlockCard } from "./"
 import { BLOCK } from "../../gql/query/block"
-import findByAttr from "../../utility"
-
+import CardRow from './CardRow'
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 
@@ -22,14 +22,13 @@ const mocks = {
             block: {
                 data: "data of block"
             }
-        }
-    }
+        },
+        errors: [new GraphQLError('Error!')],
+    },
 }
 
 describe('<BlockCard />', () => {
     let wrapperWithoutChild: ReactWrapper;
-
-
     beforeEach(async () => {
         const wrapperWithoutChildProps: TBlockCard = {
             isCreatBlock: false,
@@ -52,23 +51,23 @@ describe('<BlockCard />', () => {
         await wait(0);
         wrapperWithoutChild.update();
     });
-    // test('should wrapper (all type) contains container', () => {
-    //     expect(wrapperWithoutChild.length).not.toBe(0);
-    // })
+
 
     test('should container', () => {
         const container = wrapperWithoutChild.find('[data-text="container"]');
+
         expect(container.length).toBe(1)
 
     });
 
-    test('should CardRowSet', () => {
+    test('should CardRowSet container cardRow 3 times', () => {
         const CardRowSet = wrapperWithoutChild.find('[data-text="CardRowSet"]')
         expect(CardRowSet.length).toBe(1)
+        expect(CardRowSet.find(CardRow).length).toBe(3)
+
     })
     test('should cardRow', () => {
-        const CardRowSet = wrapperWithoutChild.find('[data-text="CardRowSet"]')
-        console.log(CardRowSet.debug())
+
     })
 
 

@@ -2,8 +2,9 @@ import React from "react";
 import classes from "./BlockCard.module.scss";
 import { Block } from "../../generated/graphql";
 import CardRow from "./CardRow";
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { BLOCK } from "../../gql/query/block";
+
 
 export type TBlockCard = {
     blockInfo: Block;
@@ -13,7 +14,7 @@ export type TBlockCard = {
 }
 
 export default function BlockCard({
-    blockInfo: { _id, password, hash, data: blockData, prevHash },
+    blockInfo: { _id, password, hash, prevHash },
     children,
     isCreatBlock,
     token
@@ -21,9 +22,9 @@ export default function BlockCard({
     function CardRowSet() {
         const Memorized = React.memo(() => (
             <>
-                <CardRow data-test="CardRow" label={"Previous hash"} value={prevHash} />
-                <CardRow data-test="CardRow" label={"Block Hash"} value={hash} />
-                <CardRow data-test="CardRow" label={"Digital Password"} value={password} />
+                <CardRow label={"Previous hash"} value={prevHash} />
+                <CardRow label={"Block Hash"} value={hash} />
+                <CardRow label={"Digital Password"} value={password} />
             </>
         ));
         return <Memorized />;
@@ -34,9 +35,15 @@ export default function BlockCard({
         : classes.blockCardInLedgerOnly;
 
     const [statePassword, setPassword] = React.useState("");
-    const { loading, data, error: queryError } = useQuery(BLOCK, {
+    const { loading, data: queryData, error: queryError } = useQuery(BLOCK, {
         variables: { token, password: statePassword, id: _id }
     });
+
+    React.useEffect(() => {
+        if (statePassword !== "") {
+            console.log({ queryData })
+        }
+    }, [statePassword]);
 
     function onClick() {
         const tempPassword = window.prompt(
@@ -50,39 +57,42 @@ export default function BlockCard({
 
     function SubmitButton() {
         const Memorized = React.memo(() => <div className={classes.actionArea}>
-            <button {...{ onClick }}>Decrypt</button>
+            <button {...{ onClick }} >Decrypt</button>
         </div>);
+
         return <Memorized />
     }
 
 
     function ParsedObject({ data }: { data: string }) {
         const { organ, details, blood } = JSON.parse(data);
+        console.log({ organ, details, blood });
         return (
             <div>
-                <CardRow data-test="CardRow" label={"organ taken?"} value={organ.toString()} />
-                <CardRow data-test="CardRow" label={"blood taken?"} value={blood.toString()} />
-                <CardRow data-test="CardRow" label={"Brief details"} value={details} />
+                <CardRow label={"organ taken?"} value={organ.toString()} />
+                <CardRow label={"blood taken?"} value={blood.toString()} />
+                <CardRow label={"Brief details"} value={details} />
             </div>
         )
     }
 
     function dataDecrypt() {
         if (!loading &&
-            data.block.data !== data) {
-            return <ParsedObject data-test="ParsedObject" data={data.block.data} />
+            queryData.block.data !== data) {
+            return <ParsedObject data={queryData.block.data} />
         }
         return <div>Authentication Failed</div>
 
     }
 
     return (
-        <div data-text="container" className={`${classes.blockCard} ${conditionClass}`}>
-            <CardRowSet data-text="CardRowSet" />
+        <div className={`${classes.blockCard} ${conditionClass}`}>
+            <CardRowSet />
             {children && (<React.Fragment>{children}</React.Fragment>)}
             {statePassword !== "" && dataDecrypt()}
-            {!children && !loading && data !== undefined &&
-                data.block.data === blockData && <SubmitButton data-test="SubmitButton" />}
+
+            {!children && !loading &&
+                queryData.block.data === data && <SubmitButton />}
         </div>
     );
 }
