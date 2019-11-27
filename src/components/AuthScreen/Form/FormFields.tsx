@@ -12,18 +12,13 @@ export type TFormFieldsProps = {
 export default function FormFields({ loginForm, userCredentials, setUserCredentials }: TFormFieldsProps) {
 
     function onChange(e: any, label: string) {
-        e.preventDefault();
-        if (label === "Confirm Password") {
-            setUserCredentials({ ...userCredentials, confirmPassword: e.target.value })
-        } else {
-            setUserCredentials({ ...userCredentials, [label]: e.target.value })
-        }
+        setUserCredentials({ ...userCredentials, [label]: e.target.value })
     }
 
     return (
         <div data-test='formFieldsContainer' className={classes.formFields}>
             {
-                loginForm.map(({ type, label }, key) =>
+                loginForm.map(({ type, label, backendLabel }, key) =>
                     <FormField
                         data-test='FormField'
                         {...{
@@ -33,7 +28,7 @@ export default function FormFields({ loginForm, userCredentials, setUserCredenti
                             label,
                             onChange,
                             key,
-                            backendLabel: "",
+                            backendLabel,
                             labelColor: "#5C43DB"
                         }} />
                 )

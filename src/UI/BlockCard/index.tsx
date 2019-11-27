@@ -1,13 +1,13 @@
 import React from "react";
 import classes from "./BlockCard.module.scss";
-import { Block } from "../../generated/graphql";
+import { PublicLedger, } from "../../generated/graphql";
 import CardRow from "./CardRow";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { BLOCK } from "../../gql/query/block";
 
 
 export type TBlockCard = {
-    blockInfo: Block;
+    blockInfo: PublicLedger;
     children?: any;
     isCreatBlock?: boolean | false;
     token?: string;
@@ -78,7 +78,7 @@ export default function BlockCard({
 
     function dataDecrypt() {
         if (!loading &&
-            queryData.block.data !== data) {
+            queryData.block.data) {
             return <ParsedObject data={queryData.block.data} />
         }
         return <div>Authentication Failed</div>
@@ -90,9 +90,8 @@ export default function BlockCard({
             <CardRowSet />
             {children && (<React.Fragment>{children}</React.Fragment>)}
             {statePassword !== "" && dataDecrypt()}
-
             {!children && !loading &&
-                queryData.block.data === data && <SubmitButton />}
+                queryData.block.data && <SubmitButton />}
         </div>
     );
 }

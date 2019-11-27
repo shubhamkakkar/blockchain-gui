@@ -2,9 +2,9 @@ import React from "react";
 import FormFields from "./FormFields";
 import Buttons from "./Buttons";
 import classes from "./Form.module.scss";
-import {useMutation} from "@apollo/react-hooks";
-import {withRouter} from "react-router";
-import {encryptedKeysAndToken} from "../../../JWT";
+import { useMutation } from "@apollo/react-hooks";
+import { withRouter } from "react-router";
+import { encryptedKeysAndToken } from "../../../JWT";
 import {
     SIGNIN_MUTATION,
     LOGIN_MUTATION
@@ -16,6 +16,7 @@ import {
 export type TLoginForm = {
     type: string;
     label: string;
+    backendLabel: string;
 };
 
 export type TuserCredential = {
@@ -28,12 +29,14 @@ type TLSAuthenticator = { email: string; password: string };
 
 let loginForm: TLoginForm[] = [
     {
-        label: "email",
-        type: "email"
+        label: "Email",
+        type: "email",
+        backendLabel: "email",
     },
     {
         label: "password",
-        type: "password"
+        type: "password",
+        backendLabel: "password"
     }
 ];
 
@@ -44,7 +47,7 @@ const initialState: TuserCredential = {
 };
 
 
-function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
+function Form({ setKeysAndToken, ...rest }: { setKeysAndToken: any }) {
     const [isLogin, setLogin] = React.useState(true);
     const [userCredentials, setUserCredentials] = React.useState(initialState);
     const [authenticationSignin] = useMutation(SIGNIN_MUTATION);
@@ -55,38 +58,39 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
         setKeysAndToken(tokenize)
     }
 
-    function loginAuthenticator({email, password}: TLSAuthenticator) {
-        authenticationLogin({variables: {email, password}})
-            .then(({data: {login: {__typename, ...loginProps}}}) => {
+    function loginAuthenticator({ email, password }: TLSAuthenticator) {
+        authenticationLogin({ variables: { email, password } })
+            .then(({ data: { login: { __typename, ...loginProps } } }) => {
                 updateReduxKeysAndToken(loginProps)
                 // @ts-ignore
                 rest.history.push("blocks");
             })
-            .catch(({graphQLErrors}) => {
-                const {message} = graphQLErrors[0];
+            .catch(({ graphQLErrors }) => {
+                const { message } = graphQLErrors[0];
                 alert(message);
-                console.log({message});
+                console.log({ message });
             });
     }
 
-    function signupAuthenticator({email, password}: TLSAuthenticator) {
-        authenticationSignin({variables: {email, password}})
-            .then(({data: {signin: {__typename, ...signinProps}}}) =>
+    function signupAuthenticator({ email, password }: TLSAuthenticator) {
+        authenticationSignin({ variables: { email, password } })
+            .then(({ data: { signin: { __typename, ...signinProps } } }) =>
                 updateReduxKeysAndToken(signinProps)
             )
-            .catch(({graphQLErrors}) => {
-                const {message} = graphQLErrors[0];
+            .catch(({ graphQLErrors }) => {
+                const { message } = graphQLErrors[0];
                 alert(message);
-                console.log({message});
+                console.log({ message });
             });
     }
 
-    function buttonActions({title}: { title: string }) {
+    function buttonActions({ title }: { title: string }) {
+        console.log({ userCredentials })
         if (isLogin) {
             if (title === "Login") {
-                const {email, password} = userCredentials;
+                const { email, password } = userCredentials;
                 if (email.trim().length && password.trim().length) {
-                    loginAuthenticator({email, password});
+                    loginAuthenticator({ email, password });
                 } else {
                     alert("All the fields are required");
                 }
@@ -95,7 +99,8 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
                     ...loginForm,
                     {
                         label: "Confirm Password",
-                        type: "password"
+                        type: "password",
+                        backendLabel: "confirmPassword"
                     }
                 ];
                 setLogin(false);
@@ -105,14 +110,14 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
                 loginForm = [...loginForm.slice(0, 2)];
                 setLogin(true);
             } else {
-                const {email, password, confirmPassword} = userCredentials;
+                const { email, password, confirmPassword } = userCredentials;
                 if (
                     email.trim().length &&
                     password.trim().length &&
                     confirmPassword.trim().length
                 ) {
                     if (password === confirmPassword) {
-                        signupAuthenticator({email, password});
+                        signupAuthenticator({ email, password });
                     } else {
                         alert("Passwords did not match");
                     }
@@ -126,8 +131,8 @@ function Form({setKeysAndToken, ...rest}: { setKeysAndToken: any }) {
     return (
         <div className={classes.formContainer}>
             <div className={classes.cardContainer}>
-                <FormFields {...{loginForm, userCredentials, setUserCredentials}}   />
-                <Buttons {...{isLogin, buttonActions}} />
+                <FormFields {...{ loginForm, userCredentials, setUserCredentials }} />
+                <Buttons {...{ isLogin, buttonActions }} />
             </div>
         </div>
     );

@@ -2,7 +2,10 @@ import React from 'react'
 import Heading from '../../UI/Heading'
 import classes from './Home.module.scss'
 import withKeysAndToken from "../../HOC/withKeysAndToken";
-function Home({ token, history }: {token: string,history:any }) {
+
+export type THome = { token: string, history: any }
+
+function Home({ token, history }: THome) {
     return (
         <div style={{ display: "flex", flex: 1, flexDirection: "column", padding: "20px" }}>
             <div>
@@ -15,21 +18,19 @@ function Home({ token, history }: {token: string,history:any }) {
                     </p>
                     <p style={{ textAlign: "center", color: "#3f51b5" }}><b>All your data would be stored in an encypted format and no user other than you, could have access to it</b></p>
                     <div className={classes.flex}>
-                    <button className={classes.button} onClick={
-                        () => {
-                            if(token){
-                                history.push("/blocks")
-                            }else{
-                                history.push("/auth")
+                        <button className={classes.button} onClick={
+                            () => {
+                                if (token) {
+                                    history.push("/blocks")
+                                } else {
+                                    history.push("/auth")
+                                }
                             }
-                        }
-                    }>
-                        {token ? "Enter " : "Join "} the chain
+                        }>
+                            {token ? "Enter " : "Join "} the chain
                 </button>
-                        </div>
-
+                    </div>
                 </div>
-
             </div>
         </div>
     )

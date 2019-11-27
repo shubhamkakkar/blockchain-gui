@@ -6,7 +6,6 @@ export const BLOCKS_QUERY = gql`
       _id
       index
       timestamp
-      data
       prevHash
       hash
       password

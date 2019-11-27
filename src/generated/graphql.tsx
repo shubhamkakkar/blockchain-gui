@@ -14,13 +14,7 @@ export type Scalars = {
 
 export type Block = {
    __typename?: 'Block',
-  _id: Scalars['ID'],
-  index: Scalars['Int'],
-  timestamp: Scalars['String'],
   data: Scalars['String'],
-  prevHash: Scalars['String'],
-  hash: Scalars['String'],
-  password: Scalars['String'],
 };
 
 export enum CacheControlScope {
@@ -33,7 +27,7 @@ export type Mutation = {
   _?: Maybe<Scalars['Boolean']>,
   signin?: Maybe<ReturnedUser>,
   login?: Maybe<ReturnedUser>,
-  createBlock: Block,
+  createBlock: TrueBlock,
 };
 
 
@@ -55,11 +49,21 @@ export type MutationCreateBlockArgs = {
   privateKey: Scalars['String']
 };
 
+export type PublicLedger = {
+   __typename?: 'PublicLedger',
+  _id: Scalars['ID'],
+  index: Scalars['Int'],
+  timestamp: Scalars['String'],
+  prevHash: Scalars['String'],
+  hash: Scalars['String'],
+  password: Scalars['String'],
+};
+
 export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['Boolean']>,
   users?: Maybe<Array<ReturnedUser>>,
-  blocks?: Maybe<Array<Block>>,
+  blocks?: Maybe<Array<PublicLedger>>,
   block: Block,
 };
 
@@ -87,6 +91,17 @@ export type ReturnedUser = {
 export type Subscription = {
    __typename?: 'Subscription',
   _?: Maybe<Scalars['Boolean']>,
+};
+
+export type TrueBlock = {
+   __typename?: 'TrueBlock',
+  _id: Scalars['ID'],
+  index: Scalars['Int'],
+  timestamp: Scalars['String'],
+  prevHash: Scalars['String'],
+  hash: Scalars['String'],
+  data: Scalars['String'],
+  password: Scalars['String'],
 };
 
 
