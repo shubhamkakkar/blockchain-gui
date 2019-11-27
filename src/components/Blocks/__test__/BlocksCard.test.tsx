@@ -11,19 +11,16 @@ describe('<BlocksCard/>', () => {
     const blocksCardProps: TBlocksCard = {
         token: "token",
         error: { message: "error message" },
-        data: {
-            blocks: [
-                {
-                    index: 0,
-                    _id: "_id",
-                    prevHash: "12321312",
-                    hash: "123213",
-                    timestamp: "2321321",
-                    data: "data - this would go away",
-                    password: "password"
-                }
-            ]
-        }
+        blocks: [
+            {
+                index: 0,
+                _id: "_id",
+                prevHash: "12321312",
+                hash: "123213",
+                timestamp: "2321321",
+                password: "password"
+            }
+        ]
     }
     beforeEach(() => {
         wrapper = shallow(<BlocksCard  {...blocksCardProps} />)
@@ -59,9 +56,7 @@ describe('<BlocksCard/>', () => {
     describe('blocks is an empty array', () => {
         let tempProps: TBlocksCard = {
             ...blocksCardProps,
-            data: {
-                blocks: []
-            }
+            blocks: []
         };
 
         const tempWrapper = shallow(<BlocksCard {...tempProps} />);

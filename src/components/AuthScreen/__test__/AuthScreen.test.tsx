@@ -3,7 +3,6 @@ import Enzyme, { ShallowWrapper, shallow, mount, ReactWrapper } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import AuthScreen, { TAuthScreen } from "../AuthScreen"
 import configureStore from 'redux-mock-store';
-import { keysAndTokenAction } from "../../../store/actions"
 
 import findByAttr from "../../../utility";
 
