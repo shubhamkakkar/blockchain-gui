@@ -53,6 +53,7 @@ function CreateBlockForm({
 
     const [createdBlock, setCreatedBlockData] = React.useState(false)
     const [createBlockMutation] = useMutation(CREATE_BLOCK, {
+        //TODO:  this would not work, remove session and instead use cacche
         refetchQueries: [{ query: BLOCKS_QUERY, variables: { token } }],
         awaitRefetchQueries: true
     });
@@ -72,7 +73,11 @@ function CreateBlockForm({
                     privateKey
                 }
             })
-                .then(({ data: { createBlock } }) => setCreatedBlockData(createBlock))
+                .then(({ data: { createBlock } }) => {
+                    sessionStorage.removeItem("PUBLIC_LEDGER")
+                    setCreatedBlockData(createBlock)
+
+                })
                 .catch(er => {
                     alert(er)
                     console.log({ er })
