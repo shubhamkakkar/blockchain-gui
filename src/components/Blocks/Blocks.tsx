@@ -22,18 +22,18 @@ function Blocks({ token, history, ...rest }: { token: string, history: any }) {
 
     React.useEffect(() => {
         dataFromLocalState = sessionStorage.getItem("PUBLIC_LEDGER");
-
-        if (dataFromLocalState !== null) {
+        if (dataFromLocalState && dataFromLocalState.length) {
+            console.log("here")
             setBlocks(JSON.parse(dataFromLocalState).blocks)
         } else {
-            caller()
-            sessionStorage.setItem("PUBLIC_LEDGER", JSON.stringify(data));
+            caller();
         }
     }, []);
 
     React.useEffect(() => {
-        console.log({ blocks })
-    }, [blocks])
+        if (data && data.blocks.length)
+            sessionStorage.setItem("PUBLIC_LEDGER", JSON.stringify(data));
+    }, [blocks, data])
 
     if (!token) {
         //TODO: add error 404 page
@@ -43,8 +43,8 @@ function Blocks({ token, history, ...rest }: { token: string, history: any }) {
         <div className={classes.blocksContainer}>
             <Heading title={"Public Ledger"} />
             {
-                blocks.length
-                    ? <BlocksCard {...{ blocks, token }} />
+                blocks.length || data && data.blocks.length
+                    ? <BlocksCard {...{ blocks: blocks.length ? blocks : data.blocks, token }} />
                     : <div>loading ... </div>
             }
         </div>

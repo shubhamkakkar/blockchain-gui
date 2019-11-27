@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_BLOCK } from "../../gql/mutations/createBlock";
 import BlockCard from "../../UI/BlockCard";
 import CardRow from "../../UI/BlockCard/CardRow";
+import { BLOCKS_QUERY } from "../../gql/query/blocks";
 
 type TForm = {
     type: "checkbox" | "text";
@@ -51,7 +52,10 @@ function CreateBlockForm({
     });
 
     const [createdBlock, setCreatedBlockData] = React.useState(false)
-    const [createBlockMutation] = useMutation(CREATE_BLOCK);
+    const [createBlockMutation] = useMutation(CREATE_BLOCK, {
+        refetchQueries: [{ query: BLOCKS_QUERY, variables: { token } }],
+        awaitRefetchQueries: true
+    });
 
     function onClick() {
         const {
